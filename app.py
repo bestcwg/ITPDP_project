@@ -20,6 +20,9 @@ mqtt = Mqtt(app)
 def index():
     return render_template("index.html", config=__CONFIG)
 
+@app.route("/measurements")
+def measurements():
+    return render_template("measurements.html", config=__CONFIG)
 
 @mqtt.on_connect()
 def handle_connect(client, userdata, flags, rc):
