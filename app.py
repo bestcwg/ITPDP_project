@@ -20,7 +20,7 @@ mqtt = Mqtt(app)
 @app.route("/home")
 def home():
     """Redirects to homepage"""
-    return render_template("index.html", target=f"{__CONFIG['prefix']}/home")
+    return render_template('index.html', target=f"{__CONFIG['prefix']}/home")
 
 @app.route("/measurements")
 def measurements():
