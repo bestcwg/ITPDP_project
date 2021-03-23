@@ -1,0 +1,17 @@
+/* button css
+*/
+button[type="submit"] {
+    appearance: none;
+    -webkit-appereance: none;
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border:3px black;
+    border-radius: 10px;
+    background-color: rgb(20, 48, 49);
+    color: white;
+}
+
+button:hover {
+    background-color: rgb(14, 33, 34);
+}
