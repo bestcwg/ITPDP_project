@@ -11,7 +11,7 @@ import measurements_db as db
 __CONFIG = itwot.config()
 app = Flask(__name__)
 app.config["MQTT_BROKER_URL"] = "itwot.cs.au.dk"
-app.config["MQTT_BROKER_PORT"] = 1883
+app.config["MQTT_BROKER_PORT"] = 8883
 
 mqtt = Mqtt(app)
 
@@ -20,7 +20,7 @@ mqtt = Mqtt(app)
 @app.route("/home")
 def home():
     """Redirects to homepage"""
-    return render_template('index.html', target=f"{__CONFIG['prefix']}/home")
+    return render_template("index.html", config=__CONFIG)
 
 @app.route("/measurements")
 def measurements():
