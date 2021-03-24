@@ -4,9 +4,9 @@ import sqlite3
 __MEASUREMENTS_DB = "db/measurements.db"
 __CREATE_SQL = """
 CREATE TABLE IF NOT EXISTS measurements
-(temp INTEGER NOT NULL,
- hum INTEGER NOT NULL,
- air INTEGER NOT NULL);
+(topic TEXT NOT NULL,
+ id INTEGER NOT NULL,
+ date TIMESTAMP NOT NULL);
 """
 
 
@@ -20,12 +20,12 @@ def create_database():
         conn.commit()
 
 
-def store_measurement(temp: int, hum: int, air: int) -> int:
+def store_measurement(topic: str, id: int) -> int:
     """Stores a measurement in the DB
 
     Args:
-        temp (int): the topic of the measurement
-        hum (int): the id of the measurement
+        topic (str): the topic of the measurement
+        id (int): the id of the measurement
 
     Returns:
         int: the number of rows affected (should be 1)
@@ -35,7 +35,7 @@ def store_measurement(temp: int, hum: int, air: int) -> int:
     ) as conn:
         cur = conn.cursor()
         cur.execute(
-            "INSERT INTO MEASUREMENTS VALUES (?,?,DATETIME('now'))", (temp, hum)
+            "INSERT INTO MEASUREMENTS VALUES (?,?,DATETIME('now'))", (topic, id)
         )
         conn.commit()
         return cur.rowcount

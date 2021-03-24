@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/paho-mqtt/1.0.2/mqttws31.min.js" type="text/javascript"></script>
-        <script defer src="{{config['prefix']}}/static/js/mqtt.js" type="text/javascript"></script>
-        <!--Meta data and title names-->
         <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <link rel="stylesheet"  href="static/style/main.css">
+    <title>Weather</title>
+    <link rel="stylesheet" href="static/style/main.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/paho-mqtt/1.0.2/mqttws31.min.js" type="text/
+    javascript"></script>
+    <script defer src="{{config['prefix']}}/static/js/mqtt.js" type="text/javascript"></script>
         {% if title %}
             <title>Weather - {{ title }}</title>
         {% else %}
@@ -17,8 +17,8 @@
         <!--Menu bar for all pages-->
         <nav>
             {% set menu_bar = [
-                ('./', 'home', 'C & S STOCKS'),
-                ('./measurements', 'measurements', 'Measurements'),
+                ('./home', 'home', 'Homepage'),
+                ('./measurements', 'measurements', 'All Measurements'),
             ] -%}
             {% set active_page = active_page|default('home') -%}
             <ul>
