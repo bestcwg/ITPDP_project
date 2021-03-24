@@ -21,15 +21,7 @@ def create_database():
 
 
 def store_measurement(topic: str, id: int) -> int:
-    """Stores a measurement in the DB
-
-    Args:
-        topic (str): the topic of the measurement
-        id (int): the id of the measurement
-
-    Returns:
-        int: the number of rows affected (should be 1)
-    """
+    """Stores a measurement in the DB"""
     with sqlite3.connect(
         __MEASUREMENTS_DB, detect_types=sqlite3.PARSE_DECLTYPES | sqlite3.PARSE_COLNAMES
     ) as conn:
@@ -39,6 +31,14 @@ def store_measurement(topic: str, id: int) -> int:
         )
         conn.commit()
         return cur.rowcount
+
+def get_measurements():
+    with sqlite3.connect(
+        __MEASUREMENTS_DB, detect_types=sqlite3.PARSE_DECLTYPES | sqlite3.PARSE_COLNAMES
+        ) as conn:
+        cur = conn.cursor()
+        cur.execute("SELECT * FROM measurements ORDER BY date DESC")
+        return cur.fetchall()
 
 
 if __name__ != "__main__":

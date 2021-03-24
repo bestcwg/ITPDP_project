@@ -36,7 +36,7 @@ function startConnect() {
 // Called when the client connects
 function onConnect() {
     // Fetch the MQTT topic from the form
-    const topic = topicText.value;
+    const topic = "au681464/M5SC0/measurements/json";
 
     // Print output for the user in the messages div
     messagesDiv.innerHTML += `<span>Subscribing to: ${topic}</span><br/>`;

@@ -12,14 +12,14 @@ __CONFIG = itwot.config()
 app = Flask(__name__)
 app.config["MQTT_BROKER_URL"] = "itwot.cs.au.dk"
 app.config["MQTT_BROKER_PORT"] = 1883
-
 mqtt = Mqtt(app)
 
 
 @app.route("/")
 @app.route("/home")
-def home():
+def index():
     """Redirects to homepage"""
+    data = db.get_measurements() 
     return render_template("/index.html", config=__CONFIG)
 
 @app.route("/measurements")
@@ -42,7 +42,13 @@ def handle_mqtt_message(client, userdata, message):
         payload = json.loads(payload)
         if "id" in payload:
             db.store_measurement(topic, payload["id"])
+            publish()
     print(f"Received MQTT on {topic}: {payload}")
+
+def publish():
+    data = db.get_measurements()   
+    for line in data:
+        mqtt.publish("au681464/data", str(json.dumps(line, default=str)))
 
 
 # inspired by https://www.devdungeon.com/content/python-catch-sigint-ctrl-c
