@@ -1,10 +1,11 @@
 <!DOCTYPE html>
     {% extends "/html/layout.html" %}
     {% set active_page = "measurements" %}
-
+    {% block script %}
+    <script defer src="{{config['prefix']}}/static/js/measurements.js" type="text/javascript"></script>
+    {% endblock %}
+    
     {% block content %}
-    <div class="wrapper">
         <h1>All measurements</h1>
             <div id="messages"></div>
-    </div>
 {% endblock content %}

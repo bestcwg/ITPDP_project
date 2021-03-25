@@ -1,5 +1,8 @@
 <!DOCTYPE html>
     {% extends "/html/layout.html" %}
+    {% block script %}
+    <script defer src="{{config['prefix']}}/static/js/mqtt.js" type="text/javascript"></script>
+    {% endblock %}
     {% set active_page = "home" %}
 
 {% block content %}
@@ -15,7 +18,7 @@
                 </tr>
                 <tr>
                 <th>Latest</th>
-                <td> <div id="latesttemp"></div></td>
+                <td><div id="latesttemp"></div></td>
                 <td><input type="text" name="latesthum" id="latesthum" readonly value="{{data[0]}}"></td>
                 <td><input type="text" name="latestpress" id="latestpress" readonly value="{{data[0]}}"></td>
                 </tr>
