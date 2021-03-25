@@ -40,13 +40,19 @@ def handle_mqtt_message(client, userdata, message):
         payload = json.loads(payload)
         if "id" in payload:
             db.store_measurement(topic, payload["id"])
-            publish()
+            publishminmax()
+            publishall()
     print(f"Received MQTT on {topic}: {payload}")
 
-def publish():
+def publishminmax():
     data = db.get_minmaxlatest()   
     for line in data:
         mqtt.publish("au681464/data", str(json.dumps(line, default=str)))
+
+def publishall():
+    data = db.get_measurements()   
+    for line in data:
+        mqtt.publish("au681464/alldata", str(json.dumps(line, default=str)))
 
 # inspired by https://www.devdungeon.com/content/python-catch-sigint-ctrl-c
 def handler(signal_received, frame):

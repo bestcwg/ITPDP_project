@@ -2,15 +2,15 @@ const host = "itwot.cs.au.dk";
 const port = "8883";
 const messagesDiv = document.querySelector("#messages");
 const topic = "au681464/M5SC0/measurements/json";
-const latesttemp = document.querySelector("#latesttemp");
-const latesthum = document.querySelector("#latesthum");
-const latestpress = document.querySelector("#latestpress");
-const minimumtemp = document.querySelector("#minimumtemp");
-const minimumhum = document.querySelector("#minimumhumidity");
-const minimumpress = document.querySelector("#minimumpress");
-const maximumtemp = document.querySelector("#maximumtemp");
-const maximumhum = document.querySelector("#maximumhum");
-const maximumpress = document.querySelector("#maximumpress");
+const latesttempText = document.querySelector("#latesttemp");
+const latesthumText = document.querySelector("#latesthum");
+const latestpressText = document.querySelector("#latestpress");
+const minimumtempText = document.querySelector("#minimumtemp");
+const minimumhumText = document.querySelector("#minimumhumidity");
+const minimumpressText = document.querySelector("#minimumpress");
+const maximumtempText = document.querySelector("#maximumtemp");
+const maximumhumText = document.querySelector("#maximumhum");
+const maximumpressText = document.querySelector("#maximumpress");
 
 let client;
 
@@ -62,19 +62,23 @@ function onMessageArrived(message) {
     const payload = message.payloadString;
     if (message.destinationName.endsWith("/data")) {
         const data = JSON.parse(payload);
-        latesttemp.value = data[0];
-        latesthum.value = data['topic'];
-        latestpress.value = data['date'];
-        minimumtemp.value = data[2];
-        minimumhum.value = data['topic'];
-        minimumpress.value = data['topic'];
-        maximumtemp.value = data[1];
-        maximumhum.value = data['topic'];
-        maximumpress.value = data['topic'];
+        latesttempText.value = data[0];
+        latesthumText.value = data['topic'];
+        latestpressText.value = data['date'];
+        minimumtempText.value = data[2];
+        minimumhumText.value = data['topic'];
+        minimumpressText.value = data['topic'];
+        maximumtempText.value = data[1];
+        maximumhumText.value = data['topic'];
+        maximumpressText.value = data['topic'];
     }
-    console.log("onMessageArrived: " + payload);
-    messagesDiv.innerHTML += `<span>Topic: ${message.destinationName}|${message.payloadString}</span><br/>`;
-    updateScroll(); // Scroll to bottom of window
+    if (message.destinationName.endsWith("/alldata")) {
+        const alldata = JSON.parse(payload);
+        messagesDiv.value = alldata['id']
+    }
+    //console.log("onMessageArrived: " + payload);
+    //messagesDiv.innerHTML += `<span>Topic: ${message.destinationName}|${message.payloadString}</span><br/>`;
+    //updateScroll(); // Scroll to bottom of window
 }
 
 // Updates #messages div to auto-scroll

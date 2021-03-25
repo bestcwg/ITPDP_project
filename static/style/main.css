@@ -78,6 +78,15 @@ input:hover {
     background-color: lightgrey;
 }
 
-input[type="button"] {
-    
+#messages {
+    appearance: none;
+    -webkit-appeareance: none;
+    width: 50%;
+    padding: 10px;
+    margin: 10px 0;
+    padding-right: 40%;
+    border:3px black;
+    border-radius: 10px;
+    background-color: rgb(20, 48, 49);
+    color: white;
 }
