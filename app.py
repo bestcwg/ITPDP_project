@@ -19,7 +19,7 @@ mqtt = Mqtt(app)
 @app.route("/home")
 def index():
     """Redirects to homepage"""
-    return render_template("/index.html", config=__CONFIG)
+    return render_template("/index.html", config=__CONFIG, data=db.get_minmaxlatest())
 
 @app.route("/measurements")
 def measurements():
@@ -28,12 +28,14 @@ def measurements():
 
 @mqtt.on_connect()
 def handle_connect(client, userdata, flags, rc):
+    """Handles connection"""
     print("connected to MQTT broker...", end="")
     mqtt.subscribe("au681464/#")
     print("subscribed")
 
 @mqtt.on_message()
 def handle_mqtt_message(client, userdata, message):
+    """Handles mqtt message"""
     topic = message.topic
     payload = message.payload.decode()
     if topic.endswith("/json"):
@@ -45,17 +47,19 @@ def handle_mqtt_message(client, userdata, message):
     print(f"Received MQTT on {topic}: {payload}")
 
 def publishminmax():
-    data = db.get_minmaxlatest()   
+    """returns a list of min, max and latest measurements"""
+    data = db.get_minmaxlatest()
     for line in data:
-        mqtt.publish("au681464/data", str(json.dumps(line, default=str)))
+        mqtt.publish("au681464/json", str(json.dumps(line, default=str)))
 
 def publishall():
-    data = db.get_measurements()   
+    """returns a list of all measurements"""
+    data = db.get_measurements()
     for line in data:
-        mqtt.publish("au681464/alldata", str(json.dumps(line, default=str)))
+        mqtt.publish("au681464/json", str(json.dumps(line, default=str)))
 
-# inspired by https://www.devdungeon.com/content/python-catch-sigint-ctrl-c
 def handler(signal_received, frame):
+    """handles exiting"""
     # Handle any cleanup here
     print("SIGINT or CTRL-C detected. Exiting gracefully")
     mqtt.unsubscribe_all()

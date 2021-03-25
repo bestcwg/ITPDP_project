@@ -15,20 +15,21 @@
                 </tr>
                 <tr>
                 <td>Latest</td>
-                <td><input type="text" name="latesttemp" id="latesttemp" readonly></td>
-                <td><input type="text" name="latesthum" id="latesthum" readonly></td>
-                <td><input type="text" name="latestpress" id="latestpress" readonly></td>
+                <td><input type="text" name="latesttemp" id="latesttemp" readonly value="{{data[0]}}"></td>
+                <td><input type="text" name="latesthum" id="latesthum" readonly value="{{data[0]}}"></td>
+                <td><input type="text" name="latestpress" id="latestpress" readonly value="{{data[0]}}"></td>
                 </tr>
                 <tr>
                 <td>Maximum</td>
-                <td><input type="text" name="maximumtemp" id="maximumtemp" readonly></td>
-                <td><input type="text" name="maximumhum" id="maximumhum" readonly></td>
-                <td><input type="text" name="maximumpress" id="maximumpress" readonly></td>
+                <td><input type="text" name="maximumtemp" id="maximumtemp" readonly value="{{data[1]}}"></td>
+                <td><input type="text" name="maximumhum" id="maximumhum" readonly value="{{data[0]}}"></td>
+                <td><input type="text" name="maximumpress" id="maximumpress" readonly value="{{data[0]}}"></td>
                 </tr>
                 <tr>
                 <td>Minimum</td>
-                <td></td>
-                <td></td>
+                <td><input type="text" name="minimumtemp" id="minimumtemp" readonly value="{{data[2]}}"></td>
+                <td><input type="text" name="minimumhum" id="minimumhum" readonly value="{{data[0]}}"></td>
+                <td><input type="text" name="minimumpress" id="minimumpress" readonly value="{{data[0]}}"></td>
                 </tr>
             </table>
         </form>

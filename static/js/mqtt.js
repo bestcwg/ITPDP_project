@@ -60,25 +60,25 @@ function onConnectionLost(responseObject) {
 // Called when a message arrives
 function onMessageArrived(message) {
     const payload = message.payloadString;
-    if (message.destinationName.endsWith("/data")) {
+    if (message.destinationName.endsWith("/json")) {
         const data = JSON.parse(payload);
         latesttempText.value = data[0];
         latesthumText.value = data['topic'];
         latestpressText.value = data['date'];
-        minimumtempText.value = data[2];
+        minimumtempText.value = data[0,2];
         minimumhumText.value = data['topic'];
         minimumpressText.value = data['topic'];
         maximumtempText.value = data[1];
         maximumhumText.value = data['topic'];
         maximumpressText.value = data['topic'];
     }
-    if (message.destinationName.endsWith("/alldata")) {
-        const alldata = JSON.parse(payload);
-        messagesDiv.value = alldata['id']
-    }
-    //console.log("onMessageArrived: " + payload);
-    //messagesDiv.innerHTML += `<span>Topic: ${message.destinationName}|${message.payloadString}</span><br/>`;
-    //updateScroll(); // Scroll to bottom of window
+    //if (message.destinationName.endsWith("/alldata")) {
+      //  const alldata = JSON.parse(payload);
+        //messagesDiv.value = alldata['id']
+    //}
+    console.log("onMessageArrived: " + payload);
+    messagesDiv.innerHTML += `<span>Topic: ${message.destinationName}|${message.payloadString}</span><br/>`;
+    updateScroll(); // Scroll to bottom of window
 }
 
 // Updates #messages div to auto-scroll

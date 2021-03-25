@@ -33,6 +33,7 @@ def store_measurement(topic: str, id: int) -> int:
         return cur.rowcount
 
 def get_measurements():
+    """Returns all measurements"""
     with sqlite3.connect(
         __MEASUREMENTS_DB, detect_types=sqlite3.PARSE_DECLTYPES | sqlite3.PARSE_COLNAMES
         ) as conn:
@@ -41,6 +42,7 @@ def get_measurements():
         return cur.fetchall()
 
 def get_minmaxlatest():
+    """Returns max,min and latest measurement"""
     with sqlite3.connect(
         __MEASUREMENTS_DB, detect_types=sqlite3.PARSE_DECLTYPES | sqlite3.PARSE_COLNAMES
         ) as conn:
