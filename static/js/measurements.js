@@ -2,15 +2,6 @@ const host = "itwot.cs.au.dk";
 const port = "8883";
 const messagesDiv = document.querySelector("#messages");
 const topic = "au681464/M5SC0/measurements/json";
-const latesttempDiv = document.querySelector("#latesttemp");
-const latesthumText = document.querySelector("#latesthum");
-const latestpressText = document.querySelector("#latestpress");
-const minimumtempText = document.querySelector("#minimumtemp");
-const minimumhumText = document.querySelector("#minimumhumidity");
-const minimumpressText = document.querySelector("#minimumpress");
-const maximumtempText = document.querySelector("#maximumtemp");
-const maximumhumText = document.querySelector("#maximumhum");
-const maximumpressText = document.querySelector("#maximumpress");
 
 let client;
 
@@ -60,18 +51,7 @@ function onConnectionLost(responseObject) {
 // Called when a message arrives
 function onMessageArrived(message) {
     const payload = message.payloadString;
-    if (message.destinationName.endsWith("/data")) {
-        const data = JSON.parse(payload);
-        latesttempDiv.innerHTML = `<span> ${data[0][0]} </span>`;
-        //latesthumText.value = data['topic'];
-        //latestpressText.value = data['date'];
-        minimumtempText.innerHTML += `<span>Topic: ${data[0][2]}</span><br/>`;
-        //minimumhumText.value = data['topic'];
-        //minimumpressText.value = data['topic'];
-        maximumtempText.innerHTML += `<span>Topic: ${data[0][1]}</span><br/>`;
-        //maximumhumText.value = data['topic'];
-        //maximumpressText.value = data['topic'];
-    }
+    
     console.log("onMessageArrived: " + payload);
     messagesDiv.innerHTML += `<span>Topic: ${message.destinationName}|${message.payloadString}</span><br/>`;
     updateScroll(); // Scroll to bottom of window

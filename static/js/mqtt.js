@@ -59,10 +59,10 @@ function onMessageArrived(message) {
         latesttempDiv.innerHTML = `<span> ${data[0][0]} </span>`;
         //latesthumDiv.value = data['topic'];
         //latestpressDiv.value = data['date'];
-        minimumtempDiv.innerHTML += `<span>Topic: ${data[0][2]}</span><br/>`;
+        minimumtempDiv.innerHTML = `<span>Topic: ${data[0][2]}</span><br/>`;
         //minimumhumDiv.value = data['topic'];
         //minimumpressDiv.value = data['topic'];
-        maximumtempDiv.innerHTML += `<span>Topic: ${data[0][1]}</span><br/>`;
+        maximumtempDiv.innerHTML = `<span>Topic: ${data[0][1]}</span><br/>`;
         //maximumhumDiv.value = data['topic'];
         //maximumpressDiv.value = data['topic'];
     }
