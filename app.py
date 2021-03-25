@@ -19,7 +19,6 @@ mqtt = Mqtt(app)
 @app.route("/home")
 def index():
     """Redirects to homepage"""
-    data = db.get_measurements() 
     return render_template("/index.html", config=__CONFIG)
 
 @app.route("/measurements")
@@ -33,7 +32,6 @@ def handle_connect(client, userdata, flags, rc):
     mqtt.subscribe("au681464/#")
     print("subscribed")
 
-
 @mqtt.on_message()
 def handle_mqtt_message(client, userdata, message):
     topic = message.topic
@@ -46,10 +44,9 @@ def handle_mqtt_message(client, userdata, message):
     print(f"Received MQTT on {topic}: {payload}")
 
 def publish():
-    data = db.get_measurements()   
+    data = db.get_minmaxlatest()   
     for line in data:
         mqtt.publish("au681464/data", str(json.dumps(line, default=str)))
-
 
 # inspired by https://www.devdungeon.com/content/python-catch-sigint-ctrl-c
 def handler(signal_received, frame):

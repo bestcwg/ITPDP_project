@@ -2,5 +2,14 @@
     {% extends "/html/layout.html" %}
     {% set active_page = "measurements" %}
 
-{% block content %}
+    {% block content %}
+    <div class="wrapper">
+        <h1>All measurements</h1>
+        <form id="connection-information-form">
+            <b>Latest:</b>
+            <input type="text" name="latest" id="latest" readonly><br><br>
+        </form>
+        <div id="messages">
+        </div>
+    </div>
 {% endblock content %}

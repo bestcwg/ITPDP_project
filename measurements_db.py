@@ -40,6 +40,20 @@ def get_measurements():
         cur.execute("SELECT * FROM measurements ORDER BY date DESC")
         return cur.fetchall()
 
+def get_minmaxlatest():
+    with sqlite3.connect(
+        __MEASUREMENTS_DB, detect_types=sqlite3.PARSE_DECLTYPES | sqlite3.PARSE_COLNAMES
+        ) as conn:
+        cur = conn.cursor()
+        cur.execute(
+        """SELECT id, date FROM measurements WHERE date = (SELECT MAX(date) FROM measurements)
+        UNION ALL
+        SELECT id, date FROM measurements WHERE id = (SELECT MAX(id) FROM measurements)
+        UNION ALL
+        SELECT id, date FROM measurements WHERE id = (SELECT MIN(id) FROM measurements)
+        """
+        )
+    return cur.fetchall()
 
 if __name__ != "__main__":
     create_database()

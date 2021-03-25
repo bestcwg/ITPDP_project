@@ -4,18 +4,33 @@
 
 {% block content %}
     <div class="wrapper">
-        <h1>Latest measurements</h1>
+        <h1>Highlighted measurements</h1>
         <form id="connection-information-form">
-            <b>Hostname or IP Address:</b>
-            <input id="host" type="text" name="host" value="itwot.cs.au.dk"><br>
-            <b>Port:</b>
-            <input id="port" type="text" name="port" value="8883"><br>
-            <b>Topic:</b>
-            <input id="topic" type="text" name="topic" value="#"><br>
-            <b>Latest:</b>
-            <input type="text" name="latest" id="latest" readonly><br><br>
-            <input type="button" onclick="startConnect()" value="Connect">
-            <input type="button" onclick="startDisconnect()" value="Disconnect"> <br>
+            <table>
+                <tr>
+                <th></th>
+                <th>Temperature</th>
+                <th>Humidity</th>
+                <th>Pressure</th>
+                </tr>
+                <tr>
+                <td>Latest</td>
+                <td><input type="text" name="latesttemp" id="latesttemp" readonly></td>
+                <td><input type="text" name="latesthum" id="latesthum" readonly></td>
+                <td><input type="text" name="latestpress" id="latestpress" readonly></td>
+                </tr>
+                <tr>
+                <td>Maximum</td>
+                <td><input type="text" name="maximumtemp" id="maximumtemp" readonly></td>
+                <td><input type="text" name="maximumhum" id="maximumhum" readonly></td>
+                <td><input type="text" name="maximumpress" id="maximumpress" readonly></td>
+                </tr>
+                <tr>
+                <td>Minimum</td>
+                <td></td>
+                <td></td>
+                </tr>
+            </table>
         </form>
         <div id="messages">
         </div>

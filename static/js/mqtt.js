@@ -1,19 +1,25 @@
-const hostText = document.querySelector("#host");
-const portText = document.querySelector("#port");
+const host = "itwot.cs.au.dk";
+const port = "8883";
 const messagesDiv = document.querySelector("#messages");
-const topicText = document.querySelector("#topic");
-const latestText = document.querySelector("#latest");
+const topic = "au681464/M5SC0/measurements/json";
+const latesttemp = document.querySelector("#latesttemp");
+const latesthum = document.querySelector("#latesthum");
+const latestpress = document.querySelector("#latestpress");
+const minimumtemp = document.querySelector("#minimumtemp");
+const minimumhum = document.querySelector("#minimumhumidity");
+const minimumpress = document.querySelector("#minimumpress");
+const maximumtemp = document.querySelector("#maximumtemp");
+const maximumhum = document.querySelector("#maximumhum");
+const maximumpress = document.querySelector("#maximumpress");
 
 let client;
+
+startConnect()
 
 // Called after form input is processed
 function startConnect() {
     // Generate a random client ID
     const clientID = "clientID-" + parseInt(Math.random() * 1000);
-
-    // Fetch the hostname/IP address and port number from the form
-    const host = hostText.value;
-    const port = portText.value;
 
     // Print output for the user in the messages div
     messagesDiv.innerHTML += `<span>Connecting to: ${host} on port: ${port}</span><br/>`;
@@ -35,8 +41,6 @@ function startConnect() {
 
 // Called when the client connects
 function onConnect() {
-    // Fetch the MQTT topic from the form
-    const topic = "au681464/M5SC0/measurements/json";
 
     // Print output for the user in the messages div
     messagesDiv.innerHTML += `<span>Subscribing to: ${topic}</span><br/>`;
@@ -56,21 +60,20 @@ function onConnectionLost(responseObject) {
 // Called when a message arrives
 function onMessageArrived(message) {
     const payload = message.payloadString;
-    if (message.destinationName.endsWith("/json")) {
+    if (message.destinationName.endsWith("/data")) {
         const data = JSON.parse(payload);
-        if (data.hasOwnProperty('id')) {
-            latestText.value = data['id'];
-        }
+        latesttemp.value = data[0];
+        latesthum.value = data['topic'];
+        latestpress.value = data['date'];
+        minimumtemp.value = data[2];
+        minimumhum.value = data['topic'];
+        minimumpress.value = data['topic'];
+        maximumtemp.value = data[1];
+        maximumhum.value = data['topic'];
+        maximumpress.value = data['topic'];
     }
     console.log("onMessageArrived: " + payload);
     messagesDiv.innerHTML += `<span>Topic: ${message.destinationName}|${message.payloadString}</span><br/>`;
-    updateScroll(); // Scroll to bottom of window
-}
-
-// Called when the disconnection button is pressed
-function startDisconnect() {
-    client.disconnect();
-    messagesDiv.innerHTML += "<span>Disconnected</span><br/>";
     updateScroll(); // Scroll to bottom of window
 }
 
