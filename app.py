@@ -42,18 +42,18 @@ def handle_mqtt_message(client, userdata, message):
         payload = json.loads(payload)
         if "id" in payload:
             db.store_measurement(topic, payload["id"])
-            publishminmax()
             publishall()
+            publishminmax()
     print(f"Received MQTT on {topic}: {payload}")
 
 def publishminmax():
     """returns a list of min, max and latest measurements"""
     data = db.get_minmaxlatest()
-    for line in data:
-        mqtt.publish("au681464/json", str(json.dumps(line, default=str)))
+    #for line in data:
+    mqtt.publish("au681464/data", str(json.dumps(data, default=str)))
 
 def publishall():
-    """returns a list of all measurements"""
+    """returns all measurements"""
     data = db.get_measurements()
     for line in data:
         mqtt.publish("au681464/json", str(json.dumps(line, default=str)))

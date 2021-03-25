@@ -64,27 +64,24 @@ main {
 input {
     appearance: none;
     -webkit-appeareance: none;
-    width: 50%;
-    padding: 10px;
-    margin: 10px 0;
-    padding-right: 40%;
-    border:3px black;
-    border-radius: 10px;
-    background-color: rgb(20, 48, 49);
-    color: white;
+    background-color:#407785f8;
+    border: none;
 }
 
-input:hover {
-    background-color: lightgrey;
+table {
+    border-collapse: collapse;
+}
+
+td, th {
+    padding: 0.5rem;
+    width: 300px;
+    background-color:none;
 }
 
 #messages {
-    appearance: none;
-    -webkit-appeareance: none;
-    width: 50%;
+    width: 95%;
     padding: 10px;
-    margin: 10px 0;
-    padding-right: 40%;
+    margin: 10px 10px;
     border:3px black;
     border-radius: 10px;
     background-color: rgb(20, 48, 49);

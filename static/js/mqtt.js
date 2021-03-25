@@ -60,22 +60,19 @@ function onConnectionLost(responseObject) {
 // Called when a message arrives
 function onMessageArrived(message) {
     const payload = message.payloadString;
-    if (message.destinationName.endsWith("/json")) {
+    if (message.destinationName.endsWith("/data")) {
         const data = JSON.parse(payload);
-        latesttempText.value = data[0];
-        latesthumText.value = data['topic'];
-        latestpressText.value = data['date'];
-        minimumtempText.value = data[0,2];
-        minimumhumText.value = data['topic'];
-        minimumpressText.value = data['topic'];
-        maximumtempText.value = data[1];
-        maximumhumText.value = data['topic'];
-        maximumpressText.value = data['topic'];
+        latesttempText.innerHTML += `<span> ${data[0][0]} </span>`;
+        //latesthumText.value = data['topic'];
+        //latestpressText.value = data['date'];
+        minimumtempText.innerHTML += `<span>Topic: ${data[0][2]}</span><br/>`;
+        //minimumhumText.value = data['topic'];
+        //minimumpressText.value = data['topic'];
+        maximumtempText.innerHTML += `<span>Topic: ${data[0][1]}</span><br/>`;
+        //maximumhumText.value = data['topic'];
+        //maximumpressText.value = data['topic'];
     }
-    //if (message.destinationName.endsWith("/alldata")) {
-      //  const alldata = JSON.parse(payload);
-        //messagesDiv.value = alldata['id']
-    //}
+    latesttempText.innerHTML = `<span> ${payload[0][0]} </span>`;
     console.log("onMessageArrived: " + payload);
     messagesDiv.innerHTML += `<span>Topic: ${message.destinationName}|${message.payloadString}</span><br/>`;
     updateScroll(); // Scroll to bottom of window
