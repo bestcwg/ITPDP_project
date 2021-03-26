@@ -8,7 +8,6 @@
 {% block content %}
     <div class="wrapper">
         <h1>Highlighted measurements</h1>
-        <form id="connection-information-form">
             <table>
                 <tr>
                 <th></th>
@@ -18,23 +17,22 @@
                 </tr>
                 <tr>
                 <th>Latest</th>
-                <td><div id="latesttemp"></div></td>
-                <td><input type="text" name="latesthum" id="latesthum" readonly value="{{data[0]}}"></td>
-                <td><input type="text" name="latestpress" id="latestpress" readonly value="{{data[0]}}"></td>
+                <td><span id="latesttemp" value="{{ data[0][0][0] }}"></span></td>
+                <td id="latesthum"><input value="{{ data[1]}}"> </input></td>
+                <td id="latestpress"><input value="{{data[2]}}"> </input></td>
                 </tr>
                 <tr>
                 <th>Maximum</th>
-                <td id="maximumtemp"></td>
-                <td><input type="text" name="maximumhum" id="maximumhum" readonly value="{{data[0]}}"></td>
-                <td><input type="text" name="maximumpress" id="maximumpress" readonly value="{{data[0]}}"></td>
+                <td id="maximumtemp"><input value="{{data[3]}}"> </input></td>
+                <td id="maximumhum"><input value="{{data[5]}}"> </input></td>
+                <td id="maximumpress"><input value="{{data[7]}}"> </input></td>
                 </tr>
                 <tr>
                 <th>Minimum</th>
-                <td id="minimumtemp"></td>
-                <td><input type="text" name="minimumhum" id="minimumhum" readonly value="{{data[0]}}"></td>
-                <td><input type="text" name="minimumpress" id="minimumpress" readonly value="{{data[0]}}"></td>
+                <td id="minimumtemp"><input value="{{data[4]}}"> </input></td>
+                <td id="minimumhum"><input value="{{data[6]}}"> </input></td>
+                <td id="minimumpress"><input value="{{data[8]}}"> </input></td>
                 </tr>
             </table>
-        </form>
     </div>
 {% endblock content %}

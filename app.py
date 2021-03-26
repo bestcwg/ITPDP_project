@@ -19,12 +19,12 @@ mqtt = Mqtt(app)
 @app.route("/home")
 def index():
     """Redirects to homepage"""
-    return render_template("/index.html", config=__CONFIG, data=db.get_minmaxlatest())
+    return render_template("/index.html", config=__CONFIG, data=db.get_minmaxlatest)
 
 @app.route("/measurements")
 def measurements():
     """Redirects to All measurements"""
-    return render_template("/html/measurements.html", config=__CONFIG)
+    return render_template("/html/measurements.html", config=__CONFIG, data=db.get_measurements())
 
 @mqtt.on_connect()
 def handle_connect(client, userdata, flags, rc):
@@ -40,23 +40,18 @@ def handle_mqtt_message(client, userdata, message):
     payload = message.payload.decode()
     if topic.endswith("/json"):
         payload = json.loads(payload)
-        if "id" in payload:
-            db.store_measurement(topic, payload["id"])
+        if "temp" and "hum" and "press" in payload:
+            db.store_measurement(payload["temp"], payload["hum"], payload["press"])
             publishall()
-            publishminmax()
     print(f"Received MQTT on {topic}: {payload}")
-
-def publishminmax():
-    """returns a list of min, max and latest measurements"""
-    data = db.get_minmaxlatest()
-    #for line in data:
-    mqtt.publish("au681464/data", str(json.dumps(data, default=str)))
 
 def publishall():
     """returns all measurements"""
     data = db.get_measurements()
     for line in data:
-        mqtt.publish("au681464/json", str(json.dumps(line, default=str)))
+        mqtt.publish("au681464/alldata", str(json.dumps(line, default=str)))
+    data = db.get_minmaxlatest()
+    mqtt.publish("au681464/data", str(json.dumps(data, default=str)))
 
 def handler(signal_received, frame):
     """handles exiting"""

@@ -59,13 +59,15 @@ main {
     border: 1px solid rgb(69, 84, 94);  
 }
 
-/* button css
+/* input css
 */
 input {
-    appearance: none;
-    -webkit-appeareance: none;
-    background-color:#407785f8;
-    border: none;
+    border:none;
+    background-image:none;
+    background-color:transparent;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
 }
 
 table {

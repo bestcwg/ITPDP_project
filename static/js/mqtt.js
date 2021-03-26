@@ -1,16 +1,15 @@
 const host = "itwot.cs.au.dk";
 const port = "8883";
-const messagesDiv = document.querySelector("#messages");
-const topic = "au681464/M5SC0/measurements/json";
+const topic = "au681464/data";
 const latesttempDiv = document.querySelector("#latesttemp");
 const latesthumDiv = document.querySelector("#latesthum");
 const latestpressDiv = document.querySelector("#latestpress");
-const minimumtempDiv = document.querySelector("#minimumtemp");
-const minimumhumDiv = document.querySelector("#minimumhumidity");
-const minimumpressDiv = document.querySelector("#minimumpress");
 const maximumtempDiv = document.querySelector("#maximumtemp");
+const minimumtempDiv = document.querySelector("#minimumtemp");
 const maximumhumDiv = document.querySelector("#maximumhum");
+const minimumhumDiv = document.querySelector("#minimumhum");
 const maximumpressDiv = document.querySelector("#maximumpress");
+const minimumpressDiv = document.querySelector("#minimumpress");
 
 let client;
 
@@ -56,14 +55,14 @@ function onMessageArrived(message) {
     const payload = message.payloadString;
     if (message.destinationName.endsWith("/data")) {
         const data = JSON.parse(payload);
-        latesttempDiv.innerHTML = `<span> ${data[0][0]} </span>`;
-        //latesthumDiv.value = data['topic'];
-        //latestpressDiv.value = data['date'];
-        minimumtempDiv.innerHTML = `<span>Topic: ${data[0][2]}</span><br/>`;
-        //minimumhumDiv.value = data['topic'];
-        //minimumpressDiv.value = data['topic'];
-        maximumtempDiv.innerHTML = `<span>Topic: ${data[0][1]}</span><br/>`;
-        //maximumhumDiv.value = data['topic'];
-        //maximumpressDiv.value = data['topic'];
+        latesttempDiv.innerHTML = `<span> ${data[0][0][0]}</br> date: ${data[0][0][3]} </span>`;
+        latesthumDiv.innerHTML = `<span> ${data[0][0][1]}</br> date: ${data[0][0][3]} </span>`;
+        latestpressDiv.innerHTML = `<span> ${data[0][0][2]}</br> date: ${data[0][0][3]} </span>`;
+        maximumtempDiv.innerHTML = `<span> ${data[1][0][0]}</br> date: ${data[1][0][1]} </span>`;
+        minimumtempDiv.innerHTML = `<span> ${data[2][0][0]}</br> date: ${data[2][0][1]} </span>`;
+        maximumhumDiv.innerHTML = `<span> ${data[3][0][0]}</br> date: ${data[3][0][1]} </span>`;
+        minimumhumDiv.innerHTML = `<span> ${data[4][0][0]}</br> date: ${data[4][0][1]} </span>`;
+        maximumpressDiv.innerHTML = `<span> ${data[5][0][0]}</br> date: ${data[5][0][1]} </span>`;
+        minimumpressDiv.innerHTML = `<span> ${data[6][0][0]}</br> date: ${data[6][0][1]} </span>`;
     }
 }
