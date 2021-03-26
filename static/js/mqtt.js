@@ -55,14 +55,14 @@ function onMessageArrived(message) {
     const payload = message.payloadString;
     if (message.destinationName.endsWith("/data")) {
         const data = JSON.parse(payload);
-        latesttempDiv.innerHTML = `<span> ${data[0][0][0]}</br> date: ${data[0][0][3]} </span>`;
-        latesthumDiv.innerHTML = `<span> ${data[0][0][1]}</br> date: ${data[0][0][3]} </span>`;
-        latestpressDiv.innerHTML = `<span> ${data[0][0][2]}</br> date: ${data[0][0][3]} </span>`;
-        maximumtempDiv.innerHTML = `<span> ${data[1][0][0]}</br> date: ${data[1][0][1]} </span>`;
-        minimumtempDiv.innerHTML = `<span> ${data[2][0][0]}</br> date: ${data[2][0][1]} </span>`;
-        maximumhumDiv.innerHTML = `<span> ${data[3][0][0]}</br> date: ${data[3][0][1]} </span>`;
-        minimumhumDiv.innerHTML = `<span> ${data[4][0][0]}</br> date: ${data[4][0][1]} </span>`;
-        maximumpressDiv.innerHTML = `<span> ${data[5][0][0]}</br> date: ${data[5][0][1]} </span>`;
-        minimumpressDiv.innerHTML = `<span> ${data[6][0][0]}</br> date: ${data[6][0][1]} </span>`;
+        latesttempDiv.innerHTML = `<span> ${data[0][0][0]}<br/> date: ${data[0][0][3]} </span>`;
+        latesthumDiv.innerHTML = `<span> ${data[0][0][1]}<br/> date: ${data[0][0][3]} </span>`;
+        latestpressDiv.innerHTML = `<span> ${data[0][0][2]}<br/> date: ${data[0][0][3]} </span>`;
+        maximumtempDiv.innerHTML = `<span> ${data[1][0][0]}<br/> date: ${data[1][0][1]} </span>`;
+        minimumtempDiv.innerHTML = `<span> ${data[2][0][0]}<br/>date: ${data[2][0][1]} </span>`;
+        maximumhumDiv.innerHTML = `<span> ${data[3][0][0]}<br/> date: ${data[3][0][1]} </span>`;
+        minimumhumDiv.innerHTML = `<span> ${data[4][0][0]}<br/> date: ${data[4][0][1]} </span>`;
+        maximumpressDiv.innerHTML = `<span> ${data[5][0][0]}<br/> date: ${data[5][0][1]} </span>`;
+        minimumpressDiv.innerHTML = `<span> ${data[6][0][0]}<br/> date: ${data[6][0][1]} </span>`;
     }
 }

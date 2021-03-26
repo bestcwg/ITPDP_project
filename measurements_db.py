@@ -29,7 +29,7 @@ def store_measurement(temp: float, hum: float, press: float) -> float:
     ) as conn:
         cur = conn.cursor()
         cur.execute(
-            "INSERT INTO MEASUREMENTS VALUES (?,?,?,DATETIME('now'))", (temp, hum, press)
+            "INSERT INTO MEASUREMENTS VALUES (?,?,?,DATETIME('now','localtime'))", (temp, hum, press)
         )
         conn.commit()
         return cur.rowcount
@@ -40,7 +40,7 @@ def get_measurements():
         __MEASUREMENTS_DB, detect_types=sqlite3.PARSE_DECLTYPES | sqlite3.PARSE_COLNAMES
         ) as conn:
         cur = conn.cursor()
-        cur.execute("SELECT * FROM measurements ORDER BY date DESC")
+        cur.execute("SELECT * FROM measurements ORDER BY date ASC")
         return cur.fetchall()
 
 def get_latest():
@@ -109,7 +109,7 @@ def get_minpress():
 def get_minmaxlatest():
     data = get_latest(), get_maxtemp(), get_mintemp(), get_maxhum(), get_minhum(), get_maxpress(), get_minpress()
     return data
-
+    
 
 if __name__ != "__main__":
     create_database()

@@ -1,7 +1,11 @@
 const host = "itwot.cs.au.dk";
 const port = "8883";
 const messagesDiv = document.querySelector("#messages");
-const topic = "au681464/alldata";
+const mestempDiv = document.querySelector("#mestemp");
+const meshumDiv = document.querySelector("#meshum");
+const mespressDiv = document.querySelector("#mespress");
+const mesdateDiv = document.querySelector("#mesdate");
+const topic = "au681464/latest";
 
 let client;
 
@@ -11,10 +15,6 @@ startConnect()
 function startConnect() {
     // Generate a random client ID
     const clientID = "clientID-" + parseInt(Math.random() * 1000);
-
-    // Print output for the user in the messages div
-    messagesDiv.innerHTML += `<span>Connecting to: ${host} on port: ${port}</span><br/>`;
-    messagesDiv.innerHTML += `<span>Using the following client value: ${clientID}</span><br/>`;
 
     // Initialize new Paho client connection
     client = new Paho.MQTT.Client(host, Number(port), clientID);
@@ -33,9 +33,6 @@ function startConnect() {
 // Called when the client connects
 function onConnect() {
 
-    // Print output for the user in the messages div
-    messagesDiv.innerHTML += `<span>Subscribing to: ${topic}</span><br/>`;
-
     // Subscribe to the requested topic
     client.subscribe(topic);
 }
@@ -51,16 +48,15 @@ function onConnectionLost(responseObject) {
 // Called when a message arrives
 function onMessageArrived(message) {
     const payload = message.payloadString;
-    if (message.destinationName.endsWith("/alldata")) {
+    if (message.destinationName.endsWith("/latest")) {
         const data = JSON.parse(payload);
         console.log("onMessageArrived: " + payload);
-        messagesDiv.innerHTML += `<span>Temperature: ${data[0][0]} Humidity: ${data[1][0]} Pressure: ${data[2][0]}</span><br/>`;
-        updateScroll(); // Scroll to bottom of window
+        messagesDiv.innerHTML += `
+        <tr>
+            <td> ${data[0][0]} </td>
+            <td> ${data[0][1]} </td>
+            <td> ${data[0][2]} </td>
+            <td> ${data[0][3]} </td>
+        </tr>`
     }
-}
-
-// Updates #messages div to auto-scroll
-function updateScroll() {
-    const element = messagesDiv;
-    element.scrollTop = element.scrollHeight;
 }

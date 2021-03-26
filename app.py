@@ -19,7 +19,7 @@ mqtt = Mqtt(app)
 @app.route("/home")
 def index():
     """Redirects to homepage"""
-    return render_template("/index.html", config=__CONFIG, data=db.get_minmaxlatest)
+    return render_template("/index.html", config=__CONFIG, data = db.get_minmaxlatest())
 
 @app.route("/measurements")
 def measurements():
@@ -47,11 +47,11 @@ def handle_mqtt_message(client, userdata, message):
 
 def publishall():
     """returns all measurements"""
-    data = db.get_measurements()
-    for line in data:
-        mqtt.publish("au681464/alldata", str(json.dumps(line, default=str)))
     data = db.get_minmaxlatest()
     mqtt.publish("au681464/data", str(json.dumps(data, default=str)))
+    data = db.get_latest()
+    mqtt.publish("au681464/latest", str(json.dumps(data, default=str)))
+
 
 def handler(signal_received, frame):
     """handles exiting"""
