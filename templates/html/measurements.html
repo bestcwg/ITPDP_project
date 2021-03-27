@@ -9,15 +9,14 @@
     {% block content %}
         <h1>All measurements</h1>
             <table>
-                <tr>
-                <th>Temperature</th>
-                <th>Humidity</th>
-                <th>Pressure</th>
-                <th>Date</th>
-                </tr>
-            </table>
-            <table id="paging">
-                {% for n in data %}
+                    <tr>
+                        <th>Temperature</th>
+                        <th>Humidity</th>
+                        <th>Pressure</th>
+                        <th>Date</th>
+                    </tr>
+                <tbody id="messages">
+                {% for n in data[0:20] %}
                     <tr>
                         <td> {{n[0]}} </td>
                         <td> {{n[1]}} </td>
@@ -25,6 +24,10 @@
                         <td> {{n[3]}} </td>
                     </tr>
                 {% endfor %}
-                <tbody id="messages"></tbody>
+                </tbody>
             </table>
+            <button id="left"> Left </button>
+            <div id="pagenum">Pagenumber: 1/ {{((data|length)/20)|round|int}}</div>
+            <button id="right"> Right </button>
+            <div id="test"></div>
 {% endblock content %}

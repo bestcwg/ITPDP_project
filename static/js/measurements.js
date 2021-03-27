@@ -5,12 +5,18 @@ const mestempDiv = document.querySelector("#mestemp");
 const meshumDiv = document.querySelector("#meshum");
 const mespressDiv = document.querySelector("#mespress");
 const mesdateDiv = document.querySelector("#mesdate");
-const topic = "au681464/latest";
+const topic = "au681464/alldata";
+var data = [];
 
 let client;
 
 startConnect()
-pagepage()
+var pagenumber = 1;
+
+
+// Evenlisteners for buttons
+document.getElementById("left").addEventListener("click",function(){pagedown()});
+document.getElementById("right").addEventListener("click",function(){pageup()});
 
 // Called after form input is processed
 function startConnect() {
@@ -49,42 +55,47 @@ function onConnectionLost(responseObject) {
 // Called when a message arrives
 function onMessageArrived(message) {
     const payload = message.payloadString;
-    if (message.destinationName.endsWith("/latest")) {
-        const data = JSON.parse(payload);
-        console.log("onMessageArrived: " + payload);
-            messagesDiv.innerHTML += `
-                <tr>
-                    <td> ${data[0][0]} </td>
-                    <td> ${data[0][1]} </td>
-                    <td> ${data[0][2]} </td>
-                    <td> ${data[0][3]} </td>
-                </tr>`
-    }
-    pagepage()
+    data = JSON.parse(payload);
+    printpage();
+    console.log("onMessageArrived: " + payload);   
 }
 
-function pagepage() {
-    $(document).ready(function(){
-        $('#paging').after('<div id="nav"></div>');
-        var rowsShown = 5;
-        var rowsTotal = $('#paging tbody tr').length;
-        var numPages = rowsTotal/rowsShown;
-        for(page = 0;page < numPages;page++) {
-            var pageNum = page + 1;
-            $('#nav').append('<a href="#" rel="'+page+'">'+pageNum+'</a> ');
+// Prints the page. If the database contains a lot of elements, the page will be slow.
+function printpage() {
+    messagesDiv.innerHTML = [];
+    for (i = (pagenumber + (pagenumber-1)*20); i < (pagenumber*20); i++) {
+        if(data.includes(data[i])) {
+            messagesDiv.innerHTML += `
+                <td> ${data[i][0]} </td>
+                <td> ${data[i][1]} </td>
+                <td> ${data[i][2]} </td>
+                <td> ${data[i][3]} </td>`
         }
-        $('#paging tbody tr').hide();
-        $('#paging tbody tr').slice(0, rowsShown).show();
-        $('#nav a:first').addClass('active');
-        $('#nav a').bind('click', function(){
-    
-            $('#nav a').removeClass('active');
-            $(this).addClass('active');
-            var currPage = $(this).attr('rel');
-            var startItem = currPage * rowsShown;
-            var endItem = startItem + rowsShown;
-            $('#paging tbody tr').css('opacity','0.0').hide().slice(startItem, endItem).
-            css('display','table-row').animate({opacity:1}, 300);
-        });
-    });
+    }
+}
+
+// Selects previous page
+function pagedown() {
+    if(pagenumber > 1) {
+        pagenumber -= 1;
+        document.querySelector("#pagenum").innerHTML = `Pagenumber: ${pagenumber}/${data.length/20}`;
+        printpage();
+        updateScroll();
+    }
+}
+
+// Selects next page
+function pageup() {
+    if(pagenumber < data.length/20) {
+        pagenumber += 1;
+        document.querySelector("#pagenum").innerHTML = `Pagenumber: ${pagenumber}/${data.length/20}`;
+        printpage();
+        updateScroll();
+    }
+}
+
+// Updates #messages div to auto-scroll
+function updateScroll() {
+    const element = messagesDiv;
+    element.scrollTop = element.scrollHeight;
 }

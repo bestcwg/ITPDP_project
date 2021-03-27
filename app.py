@@ -49,9 +49,9 @@ def publishall():
     """returns all measurements"""
     data = db.get_minmaxlatest()
     mqtt.publish("au681464/data", str(json.dumps(data, default=str)))
-    data = db.get_latest()
-    mqtt.publish("au681464/latest", str(json.dumps(data, default=str)))
-    
+    data = db.get_measurements()
+    mqtt.publish("au681464/alldata", str(json.dumps(data, default=str)))
+
 
 
 def handler(signal_received, frame):
