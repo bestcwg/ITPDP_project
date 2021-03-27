@@ -69,18 +69,11 @@ td, th {
     background-color:none;
     padding: 10px;
     margin: 10px 10px;
-    border:3px black;
-    background-color: rgb(20, 48, 49);
+    background-color: rgb(14, 78, 80);
     color: white;
     text-align: center;
 }
 
-#messages {
-    width: 95%;
-    padding: 10px;
-    margin: 10px 10px;
-    border:3px black;
-    border-radius: 10px;
-    background-color: rgb(20, 48, 49);
+div[id="nav"] {
     color: white;
 }

@@ -51,6 +51,7 @@ def publishall():
     mqtt.publish("au681464/data", str(json.dumps(data, default=str)))
     data = db.get_latest()
     mqtt.publish("au681464/latest", str(json.dumps(data, default=str)))
+    
 
 
 def handler(signal_received, frame):
