@@ -39,6 +39,7 @@ function startConnect() {
 
     fetchData();
     numofpages = getNumOfPages();
+    check();
 }
 
 
