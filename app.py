@@ -2,9 +2,8 @@
 from signal import signal, SIGINT
 from sys import exit
 import json
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, jsonify
 from flask_mqtt import Mqtt
-from flask.json import jsonify
 import itwot
 import getip
 import measurements_db as db

@@ -29,7 +29,8 @@ def store_measurement(temp: float, hum: float, press: float) -> float:
     ) as conn:
         cur = conn.cursor()
         cur.execute(
-            "INSERT INTO MEASUREMENTS VALUES (?,?,?,DATETIME('now','localtime'))", (temp, hum, press)
+            "INSERT INTO MEASUREMENTS VALUES (?,?,?,DATETIME('now','localtime'))"
+            , (temp, hum, press)
         )
         conn.commit()
         return cur.rowcount
@@ -49,7 +50,8 @@ def get_latest():
         __MEASUREMENTS_DB) as conn:
         cur = conn.cursor()
         cur.execute(
-        """SELECT temp, hum, press, date FROM measurements WHERE date = (SELECT MAX(date) FROM measurements)""")
+        """SELECT temp, hum, press, date FROM measurements
+        WHERE date = (SELECT MAX(date) FROM measurements)""")
         return cur.fetchall()
 
 def get_maxtemp():
@@ -58,7 +60,9 @@ def get_maxtemp():
         __MEASUREMENTS_DB) as conn:
         cur = conn.cursor()
         cur.execute(
-        "SELECT temp, date FROM measurements WHERE temp = (SELECT MAX(temp) FROM measurements) ORDER BY date DESC LIMIT 1")
+        """SELECT temp, date FROM measurements
+        WHERE temp = (SELECT MAX(temp) FROM measurements)
+        ORDER BY date DESC LIMIT 1""")
         return cur.fetchall()
 
 def get_mintemp():
@@ -67,7 +71,9 @@ def get_mintemp():
         __MEASUREMENTS_DB) as conn:
         cur = conn.cursor()
         cur.execute(
-        "SELECT temp, date FROM measurements WHERE temp = (SELECT MIN(temp) FROM measurements) ORDER BY date DESC LIMIT 1")
+        """SELECT temp, date FROM measurements
+        WHERE temp = (SELECT MIN(temp) FROM measurements)
+        ORDER BY date DESC LIMIT 1""")
         return cur.fetchall()
 
 def get_maxhum():
@@ -76,7 +82,9 @@ def get_maxhum():
         __MEASUREMENTS_DB) as conn:
         cur = conn.cursor()
         cur.execute(
-        "SELECT hum, date FROM measurements WHERE hum = (SELECT MAX(hum) FROM measurements ORDER BY date LIMIT 1)")
+        """SELECT hum, date FROM measurements
+        WHERE hum = (SELECT MAX(hum) FROM measurements
+        ORDER BY date LIMIT 1)""")
         return cur.fetchall()
 
 def get_minhum():
@@ -85,7 +93,9 @@ def get_minhum():
         __MEASUREMENTS_DB) as conn:
         cur = conn.cursor()
         cur.execute(
-        "SELECT hum, date FROM measurements WHERE hum = (SELECT MIN(hum) FROM measurements ORDER BY date LIMIT 1)")
+        """SELECT hum, date FROM measurements
+        WHERE hum = (SELECT MIN(hum) FROM measurements
+        ORDER BY date LIMIT 1)""")
         return cur.fetchall()
 
 def get_maxpress():
@@ -94,7 +104,9 @@ def get_maxpress():
         __MEASUREMENTS_DB) as conn:
         cur = conn.cursor()
         cur.execute(
-        "SELECT press, date FROM measurements WHERE press = (SELECT MAX(press) FROM measurements ORDER BY date LIMIT 1)")
+        """SELECT press, date FROM measurements
+        WHERE press = (SELECT MAX(press) FROM measurements
+        ORDER BY date LIMIT 1)""")
         return cur.fetchall()
 
 def get_minpress():
@@ -103,13 +115,17 @@ def get_minpress():
         __MEASUREMENTS_DB) as conn:
         cur = conn.cursor()
         cur.execute(
-        "SELECT press, date FROM measurements WHERE press = (SELECT MIN(press) FROM measurements ORDER BY date LIMIT 1)")
+        """SELECT press, date FROM measurements
+        WHERE press = (SELECT MIN(press) FROM measurements
+        ORDER BY date LIMIT 1)""")
         return cur.fetchall()
 
 def get_minmaxlatest():
-    data = get_latest(), get_maxtemp(), get_mintemp(), get_maxhum(), get_minhum(), get_maxpress(), get_minpress()
+    """Returns min, max and latest in a list"""
+    data = (get_latest(), get_maxtemp(), get_mintemp(), get_maxhum()
+    , get_minhum(), get_maxpress(), get_minpress())
     return data
-    
+
 
 if __name__ != "__main__":
     create_database()

@@ -7,10 +7,11 @@ const mespressDiv = document.querySelector("#mespress");
 const mesdateDiv = document.querySelector("#mesdate");
 const topic = "au681464/alldata";
 const numperpage = 20;
-var data = [];
-
+var data = new Array();
+var pagelist = new Array();
 let client;
 var pagenumber = 1;
+var numofpages = 0;
 
 window.addEventListener('load', startConnect())
 
@@ -37,41 +38,43 @@ function startConnect() {
     });
 
     fetchData();
+    numofpages = getNumOfPages();
 }
 
-function dataLoad() {
 
-}
-
-// Called when the client connects
 function onConnect() {
+    // Called when the client connects
 
     // Subscribe to the requested topic
     client.subscribe(topic);
 }
 
-// Called when the client loses its connection
 function onConnectionLost(responseObject) {
+    // Called when the client loses its connection
     console.log("onConnectionLost: Connection Lost");
     if (responseObject.errorCode !== 0) {
         console.log("onConnectionLost: " + responseObject.errorMessage);
     }
 }
 
-// Called when a message arrives
 function onMessageArrived(message) {
+    // Called when a message arrives
     const payload = message.payloadString;
     if (message.destinationName.endsWith("/alldata")) {
         data = JSON.parse(payload);
         printpage();
         console.log("onMessageArrived: " + payload); 
+        numofpages = getNumOfPages();
     }  
 }
 
-// Prints the page. If the database contains a lot of elements, the page will be slow.
 function printpage() {
-    messagesDiv.innerHTML = [];
-    for (i = (pagenumber + (pagenumber-1)*20); i < (pagenumber*20); i++) {
+    // Prints the page. If the database contains a lot of elements, the page will be slow.
+    messagesDiv.innerHTML = new Array();
+    var begin = ((pagenumber -1) * numperpage);
+    var end = begin + numperpage;
+    pagelist = data.slice(begin,end)
+    for (i = begin; i < end; i++) {
         if(data.includes(data[i])) {
             messagesDiv.innerHTML += `
                 <td> ${data[i][0]} </td>
@@ -80,35 +83,33 @@ function printpage() {
                 <td> ${data[i][3]} </td>`
         }
     }
+    check();
 }
 
 // Selects previous page
 function pagedown() {
-    if(pagenumber > 1) {
         pagenumber -= 1;
         document.querySelector("#pagenum").innerHTML = `Pagenumber: ${pagenumber}/${getNumOfPages()}`;
         printpage();
         updateScroll();
-    }
 }
 
-// Selects next page
 function pageup() {
-    if(pagenumber < data.length/20) {
+    // Selects next page
         pagenumber += 1;
         document.querySelector("#pagenum").innerHTML = `Pagenumber: ${pagenumber}/${getNumOfPages()}`;
         printpage();
         updateScroll();
-    }
 }
 
-// returns number of pages
 function getNumOfPages(){
+    // returns number of pages
     return Math.ceil(data.length/ numperpage)
 }
 
-// Updates #messages div to auto-scroll
+
 function updateScroll() {
+    // Updates #messages div to auto-scroll
     const element = messagesDiv;
     element.scrollTop = element.scrollHeight;
 }
@@ -123,7 +124,7 @@ function fetchData () {
     request.onload = () => {
       if (request.status === 200) {
         // Get data - add to graph and table
-        doSomething(request.responseText);
+        updatedata(request.responseText);
       }
     };
 
@@ -133,7 +134,14 @@ function fetchData () {
     request.send();
 }
 
-function doSomething (startdata) {
+function updatedata (startdata) {
+    // updates data
     console.log(startdata);
     data = JSON.parse(startdata);
+}
+
+function check() {
+    // checks if buttons should be active
+    document.getElementById("right").disabled = pagenumber == numofpages ? true : false;
+    document.getElementById("left").disabled = pagenumber == 1 ? true : false;
 }
