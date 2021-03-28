@@ -6,13 +6,13 @@ const meshumDiv = document.querySelector("#meshum");
 const mespressDiv = document.querySelector("#mespress");
 const mesdateDiv = document.querySelector("#mesdate");
 const topic = "au681464/alldata";
+const numperpage = 20;
 var data = [];
 
 let client;
-
-startConnect()
 var pagenumber = 1;
 
+window.addEventListener('load', startConnect())
 
 // Evenlisteners for buttons
 document.getElementById("left").addEventListener("click",function(){pagedown()});
@@ -35,6 +35,12 @@ function startConnect() {
         onSuccess: onConnect,
         useSSL: true
     });
+
+    fetchData();
+}
+
+function dataLoad() {
+
 }
 
 // Called when the client connects
@@ -55,9 +61,11 @@ function onConnectionLost(responseObject) {
 // Called when a message arrives
 function onMessageArrived(message) {
     const payload = message.payloadString;
-    data = JSON.parse(payload);
-    printpage();
-    console.log("onMessageArrived: " + payload);   
+    if (message.destinationName.endsWith("/alldata")) {
+        data = JSON.parse(payload);
+        printpage();
+        console.log("onMessageArrived: " + payload); 
+    }  
 }
 
 // Prints the page. If the database contains a lot of elements, the page will be slow.
@@ -78,7 +86,7 @@ function printpage() {
 function pagedown() {
     if(pagenumber > 1) {
         pagenumber -= 1;
-        document.querySelector("#pagenum").innerHTML = `Pagenumber: ${pagenumber}/${data.length/20}`;
+        document.querySelector("#pagenum").innerHTML = `Pagenumber: ${pagenumber}/${getNumOfPages()}`;
         printpage();
         updateScroll();
     }
@@ -88,14 +96,44 @@ function pagedown() {
 function pageup() {
     if(pagenumber < data.length/20) {
         pagenumber += 1;
-        document.querySelector("#pagenum").innerHTML = `Pagenumber: ${pagenumber}/${data.length/20}`;
+        document.querySelector("#pagenum").innerHTML = `Pagenumber: ${pagenumber}/${getNumOfPages()}`;
         printpage();
         updateScroll();
     }
+}
+
+// returns number of pages
+function getNumOfPages(){
+    return Math.ceil(data.length/ numperpage)
 }
 
 // Updates #messages div to auto-scroll
 function updateScroll() {
     const element = messagesDiv;
     element.scrollTop = element.scrollHeight;
+}
+
+function fetchData () {
+    // Setup request with url
+    const request = new XMLHttpRequest();
+    const requestURL = 'http://10.250.37.104:7000/getmeasurements';
+    //const requestURL = 'itwot.cs.au.dk/VM13/opg4b/getmeasurements';
+
+    // When request is loaded
+    request.onload = () => {
+      if (request.status === 200) {
+        // Get data - add to graph and table
+        doSomething(request.responseText);
+      }
+    };
+
+    // Setup and send request
+    request.open('GET', requestURL);
+    request.setRequestHeader('Accept', 'application/json');
+    request.send();
+}
+
+function doSomething (startdata) {
+    console.log(startdata);
+    data = JSON.parse(startdata);
 }

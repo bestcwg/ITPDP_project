@@ -21,13 +21,13 @@
                         <td> {{n[0]}} </td>
                         <td> {{n[1]}} </td>
                         <td> {{n[2]}} </td>
-                        <td> {{n[3]}} </td>
+                        <td> {{n[3]}} GMT </td>
                     </tr>
                 {% endfor %}
                 </tbody>
             </table>
             <button id="left"> Left </button>
-            <div id="pagenum">Pagenumber: 1/ {{((data|length)/20)|round|int}}</div>
+            <div id="pagenum">Pagenumber: 1/ {{((data|length)/20)|round()|int }}</div>
             <button id="right"> Right </button>
             <div id="test"></div>
 {% endblock content %}

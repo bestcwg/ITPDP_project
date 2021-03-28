@@ -2,8 +2,9 @@
 from signal import signal, SIGINT
 from sys import exit
 import json
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 from flask_mqtt import Mqtt
+from flask.json import jsonify
 import itwot
 import getip
 import measurements_db as db
@@ -25,6 +26,11 @@ def index():
 def measurements():
     """Redirects to All measurements"""
     return render_template("/html/measurements.html", config=__CONFIG, data=db.get_measurements())
+
+@app.route("/getmeasurements", methods=["GET"])
+def getmeasurements():
+    if request.method =="GET":
+        return jsonify(db.get_measurements())
 
 @mqtt.on_connect()
 def handle_connect(client, userdata, flags, rc):
