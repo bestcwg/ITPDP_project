@@ -125,8 +125,8 @@ function updateScroll() {
 function fetchData () {
     // Setup request with url yes
     const request = new XMLHttpRequest();
-    //const requestURL = 'http://10.250.37.104:7000/getmeasurements';
-    const requestURL = 'https://itwot.cs.au.dk/VM13/opg4b/getmeasurements';
+    const requestURL = 'http://10.250.37.104:7000/getmeasurements';
+    //const requestURL = 'https://itwot.cs.au.dk/VM13/opg4b/getmeasurements';
 
     // When request is loaded
     request.onload = () => {
