@@ -13,7 +13,7 @@ let client;
 var pagenumber = 1;
 var numofpages = 0;
 
-window.addEventListener('load', startConnect())
+window.addEventListener('load', startConnect());
 
 // Evenlisteners for buttons
 document.getElementById("left").addEventListener("click",function(){pagedown()});
@@ -37,11 +37,13 @@ function startConnect() {
         useSSL: true
     });
 
-    fetchData();
+    fetchData(); 
     numofpages = getNumOfPages();
     check();
+    if (data.length > 0) {
+        printpage();
+    }
 }
-
 
 function onConnect() {
     // Called when the client connects

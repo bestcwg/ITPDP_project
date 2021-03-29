@@ -31,6 +31,11 @@ def getmeasurements():
     if request.method =="GET":
         return jsonify(db.get_measurements())
 
+@app.route("/getmax", methods=["GET"])
+def getmax():
+    if request.method =="GET":
+        return jsonify(db.get_minmaxlatest())
+
 @mqtt.on_connect()
 def handle_connect(client, userdata, flags, rc):
     """Handles connection"""
