@@ -17,14 +17,23 @@
                         <th>Date</th>
                     </tr>
                 <tbody id="messages">
-                {% for n in data[0:20] %}
+                {% if (data is defined) and data %}
+                    {% for n in data[0:20] %}
                     <tr>
                         <td> {{n[0]}} </td>
                         <td> {{n[1]}} </td>
                         <td> {{n[2]}} </td>
                         <td> {{n[3]}} GMT </td>
                     </tr>
-                {% endfor %}
+                    {% endfor %}
+                {% else %}
+                    <tr>
+                        <th> Waiting for data </th>
+                        <td> Waiting for data </td>
+                        <td> Waiting for data </td>
+                        <td> Waiting for data </td>
+                    </tr>
+                {% endif %}
                 </tbody>
             </table>
             <button id="left"> Left </button>

@@ -11,30 +11,53 @@
     <div class="wrapper">
         <h1>Highlighted measurements</h1>
             <table>
-                <tr>
-                <th></th>
-                <th>Temperature</th>
-                <th>Humidity</th>
-                <th>Pressure</th>
-                </tr>
-                <tr>
-                <th>Latest</th>
-                <td id="latesttemp">{{ data[0][0][0] }} <br/> date: {{ data[0][0][3] }}</td>
-                <td id="latesthum">{{ data[0][0][1] }} <br/>date: {{ data[0][0][3] }}</td>
-                <td id="latestpress">{{ data[0][0][2] }} <br/>date: {{ data[0][0][3] }}</td>
-                </tr>
-                <tr>
-                <th>Maximum</th>
-                <td id="maximumtemp">{{ data[1][0][0] }} <br/> date: {{ data[1][0][1] }}</td>
-                <td id="maximumhum">{{ data[3][0][0] }} <br/>date: {{ data[3][0][1] }}</td>
-                <td id="maximumpress">{{ data[5][0][0] }} <br/>date: {{ data[5][0][1] }}</td>
-                </tr>
-                <tr>
-                <th>Minimum</th>
-                <td id="minimumtemp">{{ data[2][0][0] }} <br/>date: {{ data[2][0][1] }}</td>
-                <td id="minimumhum">{{ data[4][0][0] }} <br/>date: {{ data[4][0][1] }}</td>
-                <td id="minimumpress">{{ data[6][0][0] }} <br/>date: {{ data[6][0][1] }}</td>
-                </tr>
+                        <tr>
+                        <th></th>
+                        <th>Temperature</th>
+                        <th>Humidity</th>
+                        <th>Pressure</th>
+                        </tr>
+                    <tbody>
+                    {% if data %}
+                    <tr>
+                        <th>Latest</th>
+                        <td id="latesttemp"> Waiting for data </td>
+                        <td id="latesthum"> Waiting for data </td>
+                        <td id="latestpress"> Waiting for data </td>
+                    </tr>
+                    <tr>
+                        <th>Maximum</th>
+                        <td id="maximumtemp"></td>
+                        <td id="maximumhum"></td>
+                        <td id="maximumpress"></td>
+                    </tr>
+                    <tr>
+                        <th>Minimum</th>
+                        <td id="minimumtemp"></td>
+                        <td id="minimumhum"></td>
+                        <td id="minimumpress"></td>
+                    </tr>
+                    {% else %}
+                        <tr>
+                            <th>Latest</th>
+                            <td id="latesttemp">{{ data[0][0][0] }} <br/> date: {{ data[0][0][3] }}</td>
+                            <td id="latesthum">{{ data[0][0][0] }} <br/>date: {{ data[0][0][3] }}</td>
+                            <td id="latestpress">{{ data[0][0][0] }} <br/>date: {{ data[0][0][3] }}</td>
+                        </tr>
+                        <tr>
+                            <th>Maximum</th>
+                            <td id="maximumtemp">{{ data[1][0][0] }} <br/> date: {{ data[1][0][1] }}</td>
+                            <td id="maximumhum">{{ data[3][0][0] }} <br/>date: {{ data[3][0][1] }}</td>
+                            <td id="maximumpress">{{ data[5][0][0] }} <br/>date: {{ data[5][0][1] }}</td>
+                        </tr>
+                        <tr>
+                            <th>Minimum</th>
+                            <td id="minimumtemp">{{ data[2][0][0] }} <br/>date: {{ data[2][0][1] }}</td>
+                            <td id="minimumhum">{{ data[4][0][0] }} <br/>date: {{ data[4][0][1] }}</td>
+                            <td id="minimumpress">{{ data[6][0][0] }} <br/>date: {{ data[6][0][1] }}</td>
+                        </tr>
+                    {% endif %}
+                </tbody>
             </table>
     </div>
 {% endblock content %}

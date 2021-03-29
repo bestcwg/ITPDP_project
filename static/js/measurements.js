@@ -63,9 +63,9 @@ function onMessageArrived(message) {
     const payload = message.payloadString;
     if (message.destinationName.endsWith("/alldata")) {
         data = JSON.parse(payload);
+        numofpages = getNumOfPages();
         printpage();
         console.log("onMessageArrived: " + payload); 
-        numofpages = getNumOfPages();
     }  
 }
 
@@ -105,7 +105,12 @@ function pageup() {
 
 function getNumOfPages(){
     // returns number of pages
+    if (data.length > 0) {
     return Math.ceil(data.length/ numperpage)
+    }
+    else {
+        return 1
+    }
 }
 
 
