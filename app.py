@@ -15,26 +15,16 @@ app.config["MQTT_BROKER_PORT"] = 1883
 mqtt = Mqtt(app)
 
 
-@app.route("/")
-@app.route("/home")
+@app.route("/", methods=["POST", "GET"])
+@app.route("/start", methods=["POST", "GET"])
 def index():
-    """Redirects to homepage"""
-    return render_template("/index.html", config=__CONFIG, data = db.get_minmaxlatest())
+    """Redirects to startpage"""
+    return render_template("/index.html", config=__CONFIG)
 
-@app.route("/measurements")
-def measurements():
-    """Redirects to All measurements"""
-    return render_template("/html/measurements.html", config=__CONFIG, data=db.get_measurements())
-
-@app.route("/getmeasurements", methods=["GET"])
-def getmeasurements():
-    if request.method =="GET":
-        return jsonify(db.get_measurements())
-
-@app.route("/getmax", methods=["GET"])
-def getmax():
-    if request.method =="GET":
-        return jsonify(db.get_minmaxlatest())
+@app.route("/assignments", methods=["POST", "GET"])
+def assignments():
+    """Redirects to Assignments"""
+    return render_template("html/assignments.html", config=__CONFIG)
 
 @mqtt.on_connect()
 def handle_connect(client, userdata, flags, rc):
@@ -54,14 +44,6 @@ def handle_mqtt_message(client, userdata, message):
             db.store_measurement(payload["temp"], payload["hum"], payload["press"])
             publishall()
     print(f"Received MQTT on {topic}: {payload}")
-
-def publishall():
-    """returns all measurements"""
-    data = db.get_minmaxlatest()
-    mqtt.publish("au681464/data", str(json.dumps(data, default=str)))
-    data = db.get_measurements()
-    mqtt.publish("au681464/alldata", str(json.dumps(data, default=str)))
-
 
 
 def handler(signal_received, frame):

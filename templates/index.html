@@ -1,63 +1,25 @@
 <!DOCTYPE html>
-    {% extends "/html/layout.html" %}
-    {% block script %}
-    <script defer src="{{config['prefix']}}/static/js/mqtt.js" type="text/javascript"></script>
-    {% endblock %}
-    {% set active_page = "home" %}
-
-
-{% block content %}
-<!--posts the data when page is loaded-->
-    <div class="wrapper">
-        <h1>Highlighted measurements</h1>
-            <table>
-                        <tr>
-                        <th></th>
-                        <th>Temperature</th>
-                        <th>Humidity</th>
-                        <th>Pressure</th>
-                        </tr>
-                    <tbody>
-                    {% if not data %}
-                    <tr>
-                        <th>Latest</th>
-                        <td id="latesttemp"> Waiting for data </td>
-                        <td id="latesthum"> Waiting for data </td>
-                        <td id="latestpress"> Waiting for data </td>
-                    </tr>
-                    <tr>
-                        <th>Maximum</th>
-                        <td id="maximumtemp"></td>
-                        <td id="maximumhum"></td>
-                        <td id="maximumpress"></td>
-                    </tr>
-                    <tr>
-                        <th>Minimum</th>
-                        <td id="minimumtemp"></td>
-                        <td id="minimumhum"></td>
-                        <td id="minimumpress"></td>
-                    </tr>
-                    {% else %}
-                        <tr>
-                            <th>Latest</th>
-                            <td id="latesttemp">{{ data[0][0][0] }} <br/> date: {{ data[0][0][3] }}</td>
-                            <td id="latesthum">{{ data[0][0][1] }} <br/>date: {{ data[0][0][3] }}</td>
-                            <td id="latestpress">{{ data[0][0][2] }} <br/>date: {{ data[0][0][3] }}</td>
-                        </tr>
-                        <tr>
-                            <th>Maximum</th>
-                            <td id="maximumtemp">{{ data[1][0][0] }} <br/> date: {{ data[1][0][1] }}</td>
-                            <td id="maximumhum">{{ data[3][0][0] }} <br/>date: {{ data[3][0][1] }}</td>
-                            <td id="maximumpress">{{ data[5][0][0] }} <br/>date: {{ data[5][0][1] }}</td>
-                        </tr>
-                        <tr>
-                            <th>Minimum</th>
-                            <td id="minimumtemp">{{ data[2][0][0] }} <br/>date: {{ data[2][0][1] }}</td>
-                            <td id="minimumhum">{{ data[4][0][0] }} <br/>date: {{ data[4][0][1] }}</td>
-                            <td id="minimumpress">{{ data[6][0][0] }} <br/>date: {{ data[6][0][1] }}</td>
-                        </tr>
-                    {% endif %}
-                </tbody>
-            </table>
-    </div>
-{% endblock content %}
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Learnalization</title>
+        <link rel="stylesheet" href="{{config['prefix']}}/static/style/main.css">
+        {% if title %}
+            <title>Learnalization - {{ title }}</title>
+        {% else %}
+            <title>Startpage</title>
+        {% endif %}
+    </head>
+    <body>
+    <!--posts the data when page is loaded--> 
+        <div class="container">
+            <h1>Welcome to Learnalization</h1>
+            <form class="login" method="POST" action="assignments" name="form" onsubmit="return validated()">
+                <input type="text" placeholder="Enter Serial ID" name="serial_id">
+                <div id="serial_id_error"> Please write a serial ID to connect </div>
+                <button type="submit"> Login </button>
+            </form>
+            <script src="{{config['prefix']}}/static/js/login.js"></script>
+        </div>
+    </body>
+</html>
