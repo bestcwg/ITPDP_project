@@ -35,7 +35,7 @@ def assignments():
 def handle_connect(client, userdata, flags, rc):
     """Handles connection"""
     print("connected to MQTT broker...", end="")
-    mqtt.subscribe("au681464/#")
+    mqtt.subscribe("learnalize/#")
     print("subscribed")
 
 @mqtt.on_message()
@@ -48,6 +48,11 @@ def handle_mqtt_message(client, userdata, message):
         if "temp" and "hum" and "press" in payload:
             db.store_measurement(payload["temp"], payload["hum"], payload["press"])
             publishall()
+
+    if topic.endswith("/attribute"):
+        payload = json.loads(payload)
+        if "RFID_TAG" in payload:
+            print("GOTCHA!")
     print(f"Received MQTT on {topic}: {payload}")
 
 
