@@ -7,6 +7,11 @@ from flask_mqtt import Mqtt
 import itwot
 import getip
 import measurements_db as db
+import datablocks as test
+
+testlist = ['hey', 'med', 'dig']
+
+test.store_table(testlist)
 
 __CONFIG = itwot.config()
 app = Flask(__name__)
