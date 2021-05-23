@@ -9,10 +9,6 @@ import getip
 import measurements_db as db
 import datablocks as test
 
-testlist = ['hey', 'med', 'dig']
-
-test.store_table(testlist)
-
 __CONFIG = itwot.config()
 app = Flask(__name__)
 app.config["MQTT_BROKER_URL"] = "itwot.cs.au.dk"
@@ -53,6 +49,7 @@ def handle_mqtt_message(client, userdata, message):
         payload = json.loads(payload)
         if "RFID_TAG" in payload:
             print("GOTCHA!")
+
     print(f"Received MQTT on {topic}: {payload}")
 
 
