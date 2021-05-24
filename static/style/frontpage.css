@@ -1,0 +1,90 @@
+
+/* h1
+*/
+h1 {
+    text-align: center;
+}
+
+/* Settings for the body
+*/
+body{
+    background:#142740;
+    color: #F23E16;
+    animation:learnalization 14s infinite;
+    animation-direction:alternate;
+    font-family: 'Montserrat', sans-serif;
+}
+
+/* settings for container
+*/
+.container {
+    margin-top: 16%;
+}
+
+/* Input and button css 
+*/
+input{
+    width:222px;
+    height:37px;
+    border:2px #CCD4D0 solid;
+    margin-left: auto;
+    margin-right: auto;
+    display:block;
+    transition:0.3s;
+    padding-top:4px;
+    padding-right:6px;
+    padding-bottom:4px;
+    padding-left:6px;
+ }
+
+ button{
+   width:238px;
+   height:50px;
+   border: 0px;
+   margin-left: auto;
+   margin-right: auto;
+   display:block;
+   transition:0.3s;
+   background-color: #463578;
+   color:white;
+   font-family: 'Montserrat', sans-serif;
+   font-size: 20px;
+   font-weight: 700;
+   border-radius: 3px;
+   cursor: pointer;
+   text-align:center;
+ }
+
+ button:hover {
+    background-color: #463578ab;
+ }
+
+ button:active {
+    background-color: #463578;
+ }
+
+ input:focus{
+   border:2px black solid;
+ }
+
+ input:hover {
+     background-color:#eeeaf7 ;
+ }
+
+ input[type="text"] {
+    font-size:1.25rem;
+    text-align:center;
+    font-family: 'Montserrat', sans-serif;
+    font-weight:700;
+    color:black;
+}
+
+/* Css for errormessage with login
+*/
+.login #serial_id_error {
+    text-align: center;
+    padding: 5px;
+    color: #C62828;
+    display: none;
+}
+
