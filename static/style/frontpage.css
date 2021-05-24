@@ -8,9 +8,10 @@ h1 {
 /* Settings for the body
 */
 body{
-    background:#142740;
     color: white;
     font-family: 'Montserrat', sans-serif;
+    background-image: url(/gfx/baggrund.png);
+    background-size: cover;
 }
 
 /* settings for container
