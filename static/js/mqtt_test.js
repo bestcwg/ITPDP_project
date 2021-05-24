@@ -3,7 +3,7 @@ const port = "8883";
 const topic = "learnalize/#";
 
 let client;
-var testList = [];
+var attributeList = [];
 
 window.addEventListener('load', startConnect());
 
@@ -48,10 +48,14 @@ function onMessageArrived(message) {
     if (message.destinationName.endsWith("/attribute")) {
         data = JSON.parse(payload);
         console.log("onMessageArrived: " + payload); 
-        testList.push(payload);
-        console.log(testList);
+        if (attributeList.includes(payload)) {
+            attributeList.push(payload);
+        } 
+        //attributeList.push(payload);
+        console.log(attributeList);
     }
 }
+
 
 function fetchData () {
     // Setup request with url yes
