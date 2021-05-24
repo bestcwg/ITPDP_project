@@ -1,81 +1,62 @@
-/* Settings for the body
+/* css for body
 */
-
-h1 {
-    text-align: center;
+body {
+    margin: 0;
+    height: 100vh;
+    background-color: #d9b07e31;
 }
- @keyframes learnalization{25%{background:#eb7c1aa8;}50%{background:#c9cc0abe;}75%{background:#06a1109f;}100%{background:#106316a9;}}
-body{
-    background:#eb7c1ad2;
-    animation:learnalization 14s infinite;
-    animation-direction:alternate;
+
+/* css for grid container
+*/
+header {
+    margin-bottom: 0.5%;
+    padding: 8px;
+    background-color: #142740;
     font-family: 'Montserrat', sans-serif;
+    color: #D9B07E;
+    text-decoration: underline 3px #F23E16;
+    position: sticky;
+    top: 0;
 }
 
-.container {
-    margin-top: 16%;
+a {
+    color: inherit;
+    text-decoration: inherit;
 }
 
-input{
-    width:222px;
-    height:37px;
-    border:2px #CCD4D0 solid;
-    margin-left: auto;
-    margin-right: auto;
-    display:block;
-    transition:0.3s;
-    padding-top:4px;
-    padding-right:6px;
-    padding-bottom:4px;
-    padding-left:6px;
- }
+a:hover {
+    color: #e2a874;
+}
 
- button{
-   width:238px;
-   height:50px;
-   border: 0px;
-   margin-left: auto;
-   margin-right: auto;
-   display:block;
-   transition:0.3s;
-   background-color: #463578;
-   color:white;
-   font-family: 'Montserrat', sans-serif;
-   font-size: 20px;
-   font-weight: 700;
-   border-radius: 3px;
-   cursor: pointer;
-   text-align:center;
- }
+/* css for grid container
+*/
+.grid-container {
+    margin: 0.5%;
+    display: grid;
+    grid-template-columns: 39.5% 39.5% 20%;
+    height: 95%;
+    column-gap: 0.5%;
+    row-gap: 1%;
+    font-family: 'Montserrat', sans-serif;
+  }
 
- button:hover {
-    background-color: #463578ab;
- }
-
- button:active {
-    background-color: #463578;
- }
-
- input:focus{
-   border:2px black solid;
- }
-
- input:hover {
-     background-color:#eeeaf7 ;
- }
-
- input[type="text"]
- {
-    font-size:1.25rem;
-   text-align:center;
-   font-family: 'Montserrat', sans-serif;
-   font-weight:700;
-   color:black;
- }
-
-.login #serial_id_error {
+.grid-container > div {
+    display: grid;
     text-align: center;
-    padding: 5px;
-    color: #C62828;
-    display: none;
+    background-color: #f2cda0af;
+}
+
+.grid-container .item1, .grid-container .item2, .grid-container .item3 {
+    font-size: 20px;
+    background-color: #142740;
+    padding: 8px;
+    color: #D9B07E;
+}
+
+.item4, .item5, .item6{
+    padding: 8px;
+    border: 1px solid #D9B07E;
+    height: 90vh;
+    grid-row-start: 2;
+    grid-row-end: 4;
 }

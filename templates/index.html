@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <title>Learnalization</title>
-        <link rel="stylesheet" href="{{config['prefix']}}/static/style/main.css">
+        <link rel="stylesheet" href="{{config['prefix']}}/static/style/frontpage.css">
         {% if title %}
             <title>Learnalization - {{ title }}</title>
         {% else %}
@@ -13,7 +13,7 @@
     <body>
     <!--posts the data when page is loaded--> 
         <div class="container">
-            <h1>Welcome to Learnalization</h1>
+            <h1>Welcome to Learnalization!</h1>
             <form class="login" method="POST" action="assignments" name="form" onsubmit="return validated()">
                 <input type="text" placeholder="Enter Serial ID" name="serial_id">
                 <div id="serial_id_error"> Please write a serial ID to connect </div>
