@@ -10,8 +10,9 @@ h1 {
 body{
     color: white;
     font-family: 'Montserrat', sans-serif;
-    background-image: url(/gfx/baggrund.png);
+    background-image: url(/static/gfx/baggrund.png);
     background-size: cover;
+    background-color: #142740;
 }
 
 /* settings for container
@@ -36,7 +37,7 @@ input{
     padding-left:6px;
  }
 
- button{
+button{
    width:238px;
    height:50px;
    border: 0px;
