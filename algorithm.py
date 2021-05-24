@@ -1,5 +1,5 @@
 import functional_dependencies as FD
-from functional_dependencies.functional_dependencies import FDSet
+from functional_dependencies.functional_dependencies import FDSet, RelSchema
 
 data = {"A","B","C","D","E"}
 
@@ -12,5 +12,8 @@ print(fd1set)
 print(len(fd1set) == 3)
 print(fd1.attributes())
 print(FDSet.key(fd1set))
-print(FDSet.closure(fd1set))
-
+print(FDSet.key(fd1set) == {"A"})
+print(FDSet.basis(fd1set))
+skema = RelSchema(fd1.attributes(),fd1)
+#normalization = skema.synthesize()
+#print(len(normalization))
