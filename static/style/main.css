@@ -3,20 +3,22 @@
 body {
     margin: 0;
     height: 100vh;
-    background-color: #d9b07e31;
+    background-color: transparent;
 }
 
 /* css for grid container
 */
 header {
     margin-bottom: 0.5%;
-    padding: 8px;
+    font-size: 20px;
+    padding: 13px;
     background-color: #142740;
     font-family: 'Montserrat', sans-serif;
-    color: #D9B07E;
+    color: white;
     text-decoration: underline 3px #F23E16;
     position: sticky;
     top: 0;
+    box-shadow: 0 0px 5px 2px #1427404d;
 }
 
 a {
@@ -33,30 +35,42 @@ a:hover {
 .grid-container {
     margin: 0.5%;
     display: grid;
-    grid-template-columns: 39.5% 39.5% 20%;
+    grid-template-columns: 40% 40% 20%;
     height: 95%;
-    column-gap: 0.5%;
     row-gap: 1%;
     font-family: 'Montserrat', sans-serif;
+    background-color: transparent;
   }
 
 .grid-container > div {
     display: grid;
     text-align: center;
-    background-color: #f2cda0af;
 }
 
-.grid-container .item1, .grid-container .item2, .grid-container .item3 {
+.item1, .item2, .item3 {
     font-size: 20px;
-    background-color: #142740;
     padding: 8px;
-    color: #D9B07E;
+    padding-right: 10px;
+    color: #142740;
 }
 
 .item4, .item5, .item6{
     padding: 8px;
-    border: 1px solid #D9B07E;
+    padding-top: 0;
     height: 90vh;
     grid-row-start: 2;
     grid-row-end: 4;
+    border-right: 3px solid #142740;
+}
+
+.shadow1 {
+    padding: 10px;
+    background-color: white;
+    box-shadow: 0 0px 5px 2px #ddd;
+}
+
+.shadow2 {
+    padding: 10px;
+    background-color: white;
+    box-shadow: 0 0px 5px 2px #ddd;
 }

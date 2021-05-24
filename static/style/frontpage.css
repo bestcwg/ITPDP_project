@@ -9,9 +9,7 @@ h1 {
 */
 body{
     background:#142740;
-    color: #F23E16;
-    animation:learnalization 14s infinite;
-    animation-direction:alternate;
+    color: white;
     font-family: 'Montserrat', sans-serif;
 }
 
@@ -45,7 +43,7 @@ input{
    margin-right: auto;
    display:block;
    transition:0.3s;
-   background-color: #463578;
+   background-color:  #F23E16;
    color:white;
    font-family: 'Montserrat', sans-serif;
    font-size: 20px;
@@ -56,11 +54,11 @@ input{
  }
 
  button:hover {
-    background-color: #463578ab;
+    background-color:  #f23e1686;
  }
 
  button:active {
-    background-color: #463578;
+    background-color: #f23e1686;
  }
 
  input:focus{
@@ -76,7 +74,7 @@ input{
     text-align:center;
     font-family: 'Montserrat', sans-serif;
     font-weight:700;
-    color:black;
+    color: #142740;
 }
 
 /* Css for errormessage with login
