@@ -3,7 +3,7 @@ const port = "8883";
 const topic = "learnalize/#";
 
 let client;
-var attributeList = [];
+let attributeMap = new Map();
 
 window.addEventListener('load', startConnect());
 
@@ -48,11 +48,20 @@ function onMessageArrived(message) {
     if (message.destinationName.endsWith("/attribute")) {
         data = JSON.parse(payload);
         console.log("onMessageArrived: " + payload); 
-        if (attributeList.includes(payload)) {
-            attributeList.push(payload);
-        } 
-        //attributeList.push(payload);
-        console.log(attributeList);
+        attributeMap.set(data["RFID_TAG"], 'NOT PRIMARY');
+        console.log(attributeMap);
+        attributeMap.forEach(function(value, key) {
+            console.log(key + ' = ' +  value);
+        });
+    }
+    if (message.destinationName.endsWith("/primary")) {
+        data = JSON.parse(payload);
+        console.log("onMessageArrived: " + payload); 
+        attributeMap.set(data["RFID_TAG"], 'PRIMARY');
+        console.log(attributeMap);
+        attributeMap.forEach(function(value, key) {
+            console.log(key + ' = ' +  value);
+        });
     }
 }
 
