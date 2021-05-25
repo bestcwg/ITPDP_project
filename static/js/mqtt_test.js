@@ -12,10 +12,9 @@ function startConnect() {
     // Generate a random client ID
     const clientID = "clientID-" + parseInt(Math.random() * 1000);
 
-
     // Initialize new Paho client connection
     client = new Paho.MQTT.Client(host, Number(port), clientID);
-
+    
     // Set callback handlers
     client.onConnectionLost = onConnectionLost;
     client.onMessageArrived = onMessageArrived;
@@ -53,7 +52,10 @@ function onMessageArrived(message) {
         attributeMap.forEach(function(value, key) {
             console.log(key + ' = ' +  value);
         });
-        client.send("learnalize/test", attributeMap, 0, false);
+        messageGet = new Paho.MQTT.Message(JSON.stringify(attributeMap));
+        messageGet.destinationName("learnalize/test");
+        client.send(messageGet);
+        //client.send("learnalize/test", attributeMap);
     }
     if (message.destinationName.endsWith("/primary")) {
         data = JSON.parse(payload);
@@ -63,7 +65,8 @@ function onMessageArrived(message) {
         attributeMap.forEach(function(value, key) {
             console.log(key + ' = ' +  value);
         });
-        client.send("learnalize/test", JSON.stringify(attributeMap), 0, false);
+        client.send("learnalize/test", JSON.stringify(attributeMap));
+        
     }
 }
 
