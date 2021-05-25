@@ -2,21 +2,23 @@
 */
 body {
     margin: 0;
-    height: 100vh;
-    background-color: #d9b07e31;
+    height: 100%;
+    background-color: transparent;
 }
 
 /* css for grid container
 */
 header {
     margin-bottom: 0.5%;
-    padding: 8px;
+    font-size: 16px;
+    padding: 18px;
     background-color: #142740;
     font-family: 'Montserrat', sans-serif;
-    color: #D9B07E;
-    text-decoration: underline 3px #F23E16;
+    color: white;
+    text-decoration: underline 3px white;
     position: sticky;
     top: 0;
+    box-shadow: 0 0px 5px 2px #1427404d;
 }
 
 a {
@@ -28,35 +30,67 @@ a:hover {
     color: #e2a874;
 }
 
-/* css for grid container
+/* css for grid container and elements
 */
 .grid-container {
     margin: 0.5%;
     display: grid;
-    grid-template-columns: 39.5% 39.5% 20%;
+    grid-template-columns: 38% 38% 24%;
     height: 95%;
-    column-gap: 0.5%;
     row-gap: 1%;
     font-family: 'Montserrat', sans-serif;
+    background-color: transparent;
   }
 
 .grid-container > div {
     display: grid;
-    text-align: center;
-    background-color: #f2cda0af;
 }
 
-.grid-container .item1, .grid-container .item2, .grid-container .item3 {
-    font-size: 20px;
-    background-color: #142740;
+.item1, .item2, .item3 {
+    text-align: center;
+    font-size: 25px;
     padding: 8px;
-    color: #D9B07E;
+    padding-right: 10px;
+    color: #142740;
 }
 
 .item4, .item5, .item6{
+    text-align: left;
     padding: 8px;
-    border: 1px solid #D9B07E;
-    height: 90vh;
+    padding-top: 0;
+    height: 75vh;
     grid-row-start: 2;
     grid-row-end: 4;
+    font-family: inherit;
+}
+
+.shadow1 {
+    padding: 15px;
+    background-color: white;
+    box-shadow: 0 0px 5px 2px #ddd;
+}
+
+.shadow2 {
+    padding: 15px;
+    background-color: white;
+    box-shadow: 0 0px 5px 2px #ddd;
+}
+
+.shadow3 {
+    padding: 15px;
+    background-color: #e6f0fd;
+    box-shadow: 0 0px 5px 2px #ddd;
+}
+
+/* Complete button
+*/
+.done {
+    height: 40px;
+    width: 8%;
+    bottom: 15px;
+    right: 8%;
+    background-color: #142740;
+    color: white;
+    position: absolute;
+    font: inherit;
 }
