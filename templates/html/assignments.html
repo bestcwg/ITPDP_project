@@ -12,16 +12,41 @@
             <a href="start">LEARNALIZATION </a>
         </header>
         <div class="grid-container">
-            <div class="item1"><div class="shadow3">Assignments</div></div>
-            <div class="item2"><div class="shadow2">Workbench</div></div>
-            <div class="item3"><div class="shadow3">Confirmed</div></div>
-            <div class="item4"><div class="shadow3">Du er et hotshot i Hollywood og har fået til opgave at lave en database
+            <div class="item1">
+                <div class="shadow3">Assignment</div>
+            </div>
+            <div class="item2">
+                <div class="shadow2">Workbench</div>
+            </div>
+            <div class="item3">
+                <div class="shadow3">Confirmed</div>
+            </div>
+            <div class="item4">
+                <div class="shadow3">Du er et hotshot i Hollywood og har fået til opgave at lave en database
                 over films titler (A), filminstruktør (B), udgivelsesår (C), længden(D) og skuespillerne(E). <br /><br />
                 Hele tabellen indeholder altså attributterne A,B,C,D,E <br /><br />
-                Databasens funktionelle afhængiger er følgende: <br />
-                Title(A) -> filminstruktør(B), udgivelsesår(C), længden(D)
-            </div></div>
-            <div class="item5"><div class="shadow1">Dit table sutter pik haha</div></div>
+                Databasens funktionelle afhængigheder er følgende: <br />
+                Title(A) -> filminstruktør(B), udgivelsesår(C), længden(D)<br /><br />
+                <b> Normaliser dette tabel til 3NF for at formindske redundans: </b></div>
+            </div>
+            <div class="item5">
+                <div class="shadow1"> 
+                    <div id="workbench"> Scan some attribute blocks and see your table in progress here! </div>
+                    {% if A in attributeMap %} <img src="/static/gfx/A.png" alt="A"> 
+                    {% elif B in attributeMap %} <img src="/static/gfx/B.png" alt="B">
+                    {% elif C in attributeMap %} <img src="/static/gfx/C.png" alt="C">
+                    {% elif D in attributeMap %} <img src="/static/gfx/D.png" alt="D">
+                    {% elif E in attributeMap %} <img src="/static/gfx/E.png" alt="E">
+                    {% elif F in attributeMap %} <img src="/static/gfx/F.png" alt="F">
+                    {% elif AP in attributeMap %} <img src="/static/gfx/AP.png" alt="AP">
+                    {% elif BP in attributeMap %} <img src="/static/gfx/BP.png" alt="BP">
+                    {% elif CP in attributeMap %} <img src="/static/gfx/CP.png" alt="CP">
+                    {% elif DP in attributeMap %} <img src="/static/gfx/DP.png" alt="DP">
+                    {% elif EP in attributeMap %} <img src="/static/gfx/EP.png" alt="EP">
+                    {% elif FP in attributeMap %} <img src="/static/gfx/FP.png" alt="FP">
+                    {% else %} <p> Scan some attribute blocks and see your table in progress here! </p>
+                    {% endif %}</div>
+            </div>
             <div class="item6">
                 <div class="shadow3">Kom nu med noget der kan godkendes
                     <button class="done"> Done </button>

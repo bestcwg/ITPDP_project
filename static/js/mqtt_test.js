@@ -93,3 +93,16 @@ function fetchData () {
     request.setRequestHeader('Accept', 'application/json');
     request.send();
 }
+
+function updateWorkbench () {
+    if (attributeMap.size > 0) {
+        attributeMap.forEach (n in attributeMap) {
+            if(n.key === 'PRIMARY') {
+                document.getElementById('workbench').innerHTML += "<img src='/static/gfx/"n".png' alt='"n"'>";
+            }
+            else {
+                document.getElementById('workbench').innerHTML += "<img src='/static/gfx/"n".png' alt='"n"'>";
+            }
+        }
+    }
+}
