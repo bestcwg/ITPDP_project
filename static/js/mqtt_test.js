@@ -53,6 +53,7 @@ function onMessageArrived(message) {
         attributeMap.forEach(function(value, key) {
             console.log(key + ' = ' +  value);
         });
+        updateWorkbench();
         client.send("learnalize/test", attributeMap, 0, false);
     }
     if (message.destinationName.endsWith("/primary")) {
@@ -63,6 +64,7 @@ function onMessageArrived(message) {
         attributeMap.forEach(function(value, key) {
             console.log(key + ' = ' +  value);
         });
+        updateWorkbench();
         client.send("learnalize/test", JSON.stringify(attributeMap), 0, false);
     }
 }
@@ -95,14 +97,16 @@ function fetchData () {
 }
 
 function updateWorkbench () {
+    document.getElementById('workbench').innerHTML = "Scan some attribute blocks and see your table in progress here!";
     if (attributeMap.size > 0) {
-        attributeMap.forEach (n in attributeMap) {
-            if(n.key === 'PRIMARY') {
-                document.getElementById('workbench').innerHTML += "<img src='/static/gfx/"n".png' alt='"n"'>";
+        document.getElementById('workbench').innerHTML = "";
+        attributeMap.forEach (function(value, key) {
+            if(value === 'PRIMARY') {
+                document.getElementById('workbench').innerHTML += `<img src='/static/gfx/${key}P.png' alt='${key}P'>`;
             }
             else {
-                document.getElementById('workbench').innerHTML += "<img src='/static/gfx/"n".png' alt='"n"'>";
+                document.getElementById('workbench').innerHTML += `<img src='/static/gfx/${key}.png' alt='${key}'>`;
             }
-        }
+        });
     }
 }
