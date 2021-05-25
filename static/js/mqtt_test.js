@@ -110,3 +110,15 @@ function updateWorkbench () {
         });
     }
 }
+
+function updateCompleted () {
+    attributeMap.forEach (function(value, key) {
+        if(value === 'PRIMARY') {
+            document.getElementById('workbench').innerHTML += `<img src='/static/gfx/${key}P.png' alt='${key}P'>`;
+        }
+        else {
+            document.getElementById('workbench').innerHTML += `<img src='/static/gfx/${key}.png' alt='${key}'>`;
+        }
+    });
+    attributeMap.clear();
+}
