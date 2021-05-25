@@ -56,6 +56,8 @@ function onMessageArrived(message) {
         messageGet.destinationName("learnalize/test");
         client.send(messageGet);
         //client.send("learnalize/test", attributeMap);
+        updateWorkbench();
+        client.send("learnalize/test", attributeMap, 0, false);
     }
     if (message.destinationName.endsWith("/primary")) {
         data = JSON.parse(payload);
@@ -65,8 +67,9 @@ function onMessageArrived(message) {
         attributeMap.forEach(function(value, key) {
             console.log(key + ' = ' +  value);
         });
-        client.send("learnalize/test", JSON.stringify(attributeMap));
-        
+    
+        updateWorkbench();
+        client.send("learnalize/test", JSON.stringify(attributeMap), 0, false);
     }
 }
 
@@ -95,4 +98,19 @@ function fetchData () {
     request.open('GET', requestURL);
     request.setRequestHeader('Accept', 'application/json');
     request.send();
+}
+
+function updateWorkbench () {
+    document.getElementById('workbench').innerHTML = "Scan some attribute blocks and see your table in progress here!";
+    if (attributeMap.size > 0) {
+        document.getElementById('workbench').innerHTML = "";
+        attributeMap.forEach (function(value, key) {
+            if(value === 'PRIMARY') {
+                document.getElementById('workbench').innerHTML += `<img src='/static/gfx/${key}P.png' alt='${key}P'>`;
+            }
+            else {
+                document.getElementById('workbench').innerHTML += `<img src='/static/gfx/${key}.png' alt='${key}'>`;
+            }
+        });
+    }
 }

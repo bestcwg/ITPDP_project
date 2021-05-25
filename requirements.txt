@@ -1,7 +1,9 @@
 astroid==2.5.1
 click==7.1.2
+colorama==0.4.4
 Flask==1.1.2
 Flask-MQTT==1.1.1
+functional-dependencies==1.2.1
 isort==5.8.0
 itsdangerous==1.1.0
 Jinja2==2.11.3
