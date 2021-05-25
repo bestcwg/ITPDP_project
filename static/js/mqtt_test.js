@@ -44,33 +44,35 @@ function onConnectionLost(responseObject) {
 // Called when a message arrives
 function onMessageArrived(message) {
     const payload = message.payloadString;
-    if (message.destinationName.endsWith("/attribute")) {
+    messageMQTT("/attribute", message, payload)
+        
+    messageMQTT("/primary", message, payload)
+}
+
+function messageMQTT(topic, message, payload) {
+    if (message.destinationName.endsWith(topic)) {
         data = JSON.parse(payload);
+        if (topic === "/attribute") {
+            type = "NOT PRIMARY";
+        } else {
+            type = "PRIMARY";
+        }
+
         console.log("onMessageArrived: " + payload); 
-        attributeMap.set(convertTag(data["RFID_TAG"]), 'NOT PRIMARY');
+        attributeMap.set(convertTag(data["RFID_TAG"]), type);
         console.log(attributeMap);
         attributeMap.forEach(function(value, key) {
             console.log(key + ' = ' +  value);
         });
-        messageGet = new Paho.MQTT.Message(JSON.stringify(attributeMap));
-        messageGet.destinationName("learnalize/test");
-        client.send(messageGet);
-        //client.send("learnalize/test", attributeMap);
         updateWorkbench();
-        client.send("learnalize/test", attributeMap, 0, false);
     }
-    if (message.destinationName.endsWith("/primary")) {
-        data = JSON.parse(payload);
-        console.log("onMessageArrived: " + payload); 
-        attributeMap.set(convertTag(data["RFID_TAG"]), 'PRIMARY');
-        console.log(attributeMap);
-        attributeMap.forEach(function(value, key) {
-            console.log(key + ' = ' +  value);
-        });
-    
-        updateWorkbench();
-        client.send("learnalize/test", JSON.stringify(attributeMap), 0, false);
-    }
+}
+
+function mapToObj(map){
+    const obj = {}
+    for (let [k,v] of map)
+        obj[k] = v
+    return obj
 }
 
 function convertTag(RFID_TAG) {
@@ -78,6 +80,12 @@ function convertTag(RFID_TAG) {
                         ['4D006AB00D9A','D'], ['4D006A6FE5AD','E'], ['59001D35FB8A','F']]);
 
     return myMap.get(RFID_TAG);
+}
+
+function finishedTable() {
+    messageGet = new Paho.MQTT.Message(JSON.stringify(mapToObj(attributeMap)));
+    messageGet.destinationName = "learnalize/confirmTable";
+    client.send(messageGet);
 }
 
 function fetchData () {
