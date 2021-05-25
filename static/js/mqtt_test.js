@@ -3,6 +3,7 @@ const port = "8883";
 const topic = "learnalize/#";
 
 let client;
+let mapAsc = new Map();
 let attributeMap = new Map();
 
 window.addEventListener('load', startConnect());
@@ -59,7 +60,10 @@ function messageMQTT(topic, message, payload) {
         }
 
         console.log("onMessageArrived: " + payload); 
-        attributeMap.set(convertTag(data["RFID_TAG"]), type);
+        mapAsc.set(convertTag(data["RFID_TAG"]), type);
+        mapAscc = new Map([...mapAsc.entries()].sort((a, b) => String(a[0].localeCompare(b[0]))));
+        attributeMap = new Map([...mapAscc.entries()].sort((a, b) => String(b[1].localeCompare(a[1]))));
+        console.log(mapAsc);
         console.log(attributeMap);
         attributeMap.forEach(function(value, key) {
             console.log(key + ' = ' +  value);
