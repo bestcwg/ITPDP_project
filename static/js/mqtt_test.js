@@ -48,23 +48,31 @@ function onMessageArrived(message) {
     if (message.destinationName.endsWith("/attribute")) {
         data = JSON.parse(payload);
         console.log("onMessageArrived: " + payload); 
-        attributeMap.set(data["RFID_TAG"], 'NOT PRIMARY');
+        attributeMap.set(convertTag(data["RFID_TAG"]), 'NOT PRIMARY');
         console.log(attributeMap);
         attributeMap.forEach(function(value, key) {
             console.log(key + ' = ' +  value);
         });
+        client.send("learnalize/test", attributeMap, 0, false);
     }
     if (message.destinationName.endsWith("/primary")) {
         data = JSON.parse(payload);
         console.log("onMessageArrived: " + payload); 
-        attributeMap.set(data["RFID_TAG"], 'PRIMARY');
+        attributeMap.set(convertTag(data["RFID_TAG"]), 'PRIMARY');
         console.log(attributeMap);
         attributeMap.forEach(function(value, key) {
             console.log(key + ' = ' +  value);
         });
+        client.send("learnalize/test", JSON.stringify(attributeMap), 0, false);
     }
 }
 
+function convertTag(RFID_TAG) {
+    const myMap = new Map([['4B008304BA76','A'], ['59001D3A80FE','B'], ['4D006A71FBAD','C'], 
+                        ['4D006AB00D9A','D'], ['4D006A6FE5AD','E'], ['59001D35FB8A','F']]);
+
+    return myMap.get(RFID_TAG);
+}
 
 function fetchData () {
     // Setup request with url yes
