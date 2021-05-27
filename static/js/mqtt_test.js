@@ -5,6 +5,11 @@ const topic = "learnalize/#";
 let client;
 let mapAsc = new Map();
 let attributeMap = new Map();
+attributeMap.set('A', '12334');
+attributeMap.set('B', '1233');
+attributeMap.set('C', '123234');
+attributeMap.set('D', '334');
+updateWorkbench();
 
 window.addEventListener('load', startConnect());
 
@@ -88,7 +93,7 @@ function convertTag(RFID_TAG) {
 
 function finishedTable() {
     messageGet = new Paho.MQTT.Message(JSON.stringify(mapToObj(attributeMap)));
-    messageGet.destinationName = "learnalize/confirmTable";
+    messageGet.destinationName = "learnalize/check";
     client.send(messageGet);
 }
 
@@ -113,6 +118,7 @@ function fetchData () {
 }
 
 function updateWorkbench () {
+    document.getElementById('checknf').innerHTML = "";
     document.getElementById('workbench').innerHTML = "Scan some attribute blocks and see your table in progress here!";
     if (attributeMap.size > 0) {
         document.getElementById('workbench').innerHTML = "";
@@ -139,12 +145,29 @@ function updateCompleted () {
     attributeMap.clear();
 }
 
-function done () {
-    if (hvis det er det rigtige svar på opgaven))) {
-        fyrværkeri blabla
+function check () {
+    //Restraint so that you can't press the platform without any table
+    if (attributeMap.size > 0) {
+        finishedTable();
+        // Hvis det er i 3NF
+        if(attributeMap) {
+            checknf.style.display = "That is not in 3NF, remember 3NF is 'the key, the whole key, and nothing but the key'";
+        }
+        else {
+            attributeMap.forEach (function(value, key) {
+                if(value === 'PRIMARY') {
+                    document.getElementById('workbench').innerHTML += `<img src='/static/gfx/${key}P.png' alt='${key}P'>`;
+                }
+                else {
+                    document.getElementById('workbench').innerHTML += `<img src='/static/gfx/${key}.png' alt='${key}'>`;
+                    
+                }
+            });
+        }
     }
     else {
-        god feedback
+        document.getElementById('checknf').innerHTML = "I need a table";
+        return true;
     }
 }
 
