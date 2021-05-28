@@ -32,10 +32,15 @@ def create_database():
         conn.commit()
 
 def store_table(temp_table):
-    data = []
+    print(temp_table)
+    data = {"A":"", "B":"", "C":"", "D":"", "E":"", "F":""}
     for x in temp_table:
-        data.append(x)
+        if x in data :
+            data[x] = temp_table[x]
 
+    finaldata = []
+    for x in data:
+        finaldata.append(data[x])
 
     with sqlite3.connect(
         __DATABLOCKS_DB, detect_types=sqlite3.PARSE_DECLTYPES | sqlite3.PARSE_COLNAMES
@@ -43,7 +48,7 @@ def store_table(temp_table):
         cur = conn.cursor()
         cur.execute("""
         INSERT INTO datablocks VALUES(?,?,?,?,?,?)
-        """, data)
+        """, finaldata)
         conn.commit()
 
 

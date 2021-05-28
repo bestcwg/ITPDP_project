@@ -5,11 +5,11 @@ const topic = "learnalize/#";
 let client;
 let mapAsc = new Map();
 let attributeMap = new Map();
-attributeMap.set('A', '12334');
-attributeMap.set('B', '1233');
-attributeMap.set('C', '123234');
-attributeMap.set('D', '334');
-updateWorkbench();
+//attributeMap.set('A', '12334');
+//attributeMap.set('B', '1233');
+//attributeMap.set('C', '123234');
+//attributeMap.set('D', '334');
+//updateWorkbench();
 
 window.addEventListener('load', startConnect());
 
