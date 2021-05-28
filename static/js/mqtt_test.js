@@ -107,6 +107,10 @@ function finishedTable() {
     client.send(messageGet);
 }
 
+function removeLastEntry(key) {
+    attributeMap.delete(key)
+}
+
 function fetchData () {
     // Setup request with url yes
     const request = new XMLHttpRequest();
