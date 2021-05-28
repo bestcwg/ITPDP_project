@@ -6,8 +6,7 @@ from flask import Flask, render_template, request, jsonify
 from flask_mqtt import Mqtt
 import itwot
 import getip
-import measurements_db as db
-import datablocks as test
+import datablocks as db
 import nfcheck
 
 __CONFIG = itwot.config()
@@ -40,10 +39,6 @@ def handle_mqtt_message(client, userdata, message):
     """Handles mqtt message"""
     topic = message.topic
     payload = message.payload.decode()
-    if topic.endswith("/json"):
-        payload = json.loads(payload)
-        if "temp" and "hum" and "press" in payload:
-            db.store_measurement(payload["temp"], payload["hum"], payload["press"])
 
     if topic.endswith("/attribute"):
         payload = json.loads(payload)
@@ -72,6 +67,8 @@ def handle_mqtt_message(client, userdata, message):
 
         if(nf.is3nf()) :
             mqtt.publish("learnalize/checkresult", str(json.dumps('true', default=str)))
+            db.store_table(payload)
+            db.take_all()
         else :
             mqtt.publish("learnalize/checkresult", str(json.dumps('false', default=str)))
         
