@@ -1,4 +1,5 @@
-#!/usr/bin/python
+# Borrowed from https://github.com/amrith/functional-dependencies
+# !/usr/bin/python
 #
 # fds.py
 #
