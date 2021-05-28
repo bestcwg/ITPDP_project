@@ -8,6 +8,7 @@ import itwot
 import getip
 import measurements_db as db
 import datablocks as test
+import nfcheck
 
 __CONFIG = itwot.config()
 app = Flask(__name__)
@@ -22,7 +23,7 @@ def index():
     """Redirects to startpage"""
     return render_template("/index.html", config=__CONFIG)
 
-@app.route("/assignments", methods=["POST", "GET"])
+@app.route("/assignments", methods=["GET", "POST"])
 def assignments():
     """Redirects to Assignments"""
     return render_template("html/assignments.html", config=__CONFIG)
@@ -43,13 +44,37 @@ def handle_mqtt_message(client, userdata, message):
         payload = json.loads(payload)
         if "temp" and "hum" and "press" in payload:
             db.store_measurement(payload["temp"], payload["hum"], payload["press"])
-            publishall()
 
     if topic.endswith("/attribute"):
         payload = json.loads(payload)
         if "RFID_TAG" in payload:
             print("GOTCHA!")
 
+    if topic.endswith("/check"):
+        payload = json.loads(payload)
+        nf = nfcheck.FDs()
+        if ('A' in payload and 'B' in payload) :
+            nf.addfd(nfcheck.FDs.mkfd('A','B'))
+        if ('A' in payload and 'C' in payload) :
+            nf.addfd(nfcheck.FDs.mkfd('A','C'))
+        if ('A' in payload and 'D' in payload) :
+            nf.addfd(nfcheck.FDs.mkfd('A','D'))
+        
+        print('Keys')
+        print(nf.keys())
+        print('Minimal Cover')
+        print(nf.minimalCover())
+        print("Is 3nf", nf.is3nf())
+        print("Is BCNF", nf.isbcnf())
+        print("Complete FD closure")
+        for fdc in nf.fdclosure():
+            print(''.join(fdc[0]), '->', ''.join(fdc[1]), fdc[2] or '')
+
+        if(nf.is3nf()) :
+            mqtt.publish("learnalize/checkresult", str(json.dumps('true', default=str)))
+        else :
+            mqtt.publish("learnalize/checkresult", str(json.dumps('false', default=str)))
+        
     print(f"Received MQTT on {topic}: {payload}")
 
 

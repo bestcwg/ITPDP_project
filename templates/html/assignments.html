@@ -5,7 +5,7 @@
         <title>Learnalization tasks</title>
         <link rel="stylesheet" href="{{config['prefix']}}/static/style/main.css">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/paho-mqtt/1.0.2/mqttws31.js" type="text/javascript"></script>
-        <script src="{{config['prefix']}}/static/js/mqtt_test.js" type="text/javascript"></script>
+        
     </head>
     <body>
         <header>
@@ -22,23 +22,43 @@
                 <div class="shadow3">Confirmed</div>
             </div>
             <div class="item4">
-                <div class="shadow3">Du er et hotshot i Hollywood og har fået til opgave at lave en database
+                <div class="shadow4">Du er et hotshot i Hollywood og har fået til opgave at lave en database
                 over films titler (A), filminstruktør (B), udgivelsesår (C), længden(D) og skuespillerne(E). <br /><br />
                 Hele tabellen indeholder altså attributterne A,B,C,D,E <br /><br />
                 Databasens funktionelle afhængigheder er følgende: <br />
                 Title(A) -> filminstruktør(B), udgivelsesår(C), længden(D)<br /><br />
-                <b> Normaliser dette tabel til 3NF for at formindske redundans: </b></div>
+                </div>
             </div>
             <div class="item5">
-                <div class="shadow1"> 
+                <div class="shadow5"> 
                     <div id="workbench"> Scan some attribute blocks and see your table in progress here! </div>
                 </div>
             </div>
             <div class="item6">
-                <div class="shadow3">Kom nu med noget der kan godkendes
-                    <button class="done"> Done </button>
+                <div class="shadow4">
+                    <div id="completed"> This is where your weighed 3NF tables will show! </div>
                 </div>
             </div>
-          </div>
+            <div class="item7">
+                <div class="shadow1">
+                    <b> Normaliser dette tabel til 3NF for at formindske redundans: </b>
+                </div>
+            </div>
+            <div class="item8">
+                <div class="shadow6">
+                    <!--<form class="check" method="POST" name="check" onsubmit="return check()">-->
+                        <div id="checknf"></div>
+                        <button class="submit" onclick="check()"> Feedback fra vægt </button> 
+                </div>
+            </div>
+            <div class="item9">
+                <div class="shadow1">
+                    <form class="done" method="POST" action="assignments" name="done" onsubmit="return done()">
+                        <button class="submit"> Done </button>
+                    </form>
+                </div>
+            </div>
+        </div>
     </body>
+    <script src="{{config['prefix']}}/static/js/mqtt_test.js" type="text/javascript"></script>
 </html>

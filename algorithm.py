@@ -2,18 +2,22 @@ import functional_dependencies as FD
 from functional_dependencies.functional_dependencies import FDSet, RelSchema
 
 data = {"A","B","C","D","E"}
-
-fd1 = FD.FD({"A"},{"B","C","D"})
+fds = FDSet()
+fds.add(FD.FD({"A"},{"B","C","D"}))
+fds.add(FD.FD({"E"},{"E"}))
 #fd2 = FD.FD("A","E")
 
-fd1set = fd1.rminimize()
+fd1set = RelSchema(fds.attributes(),fds)
 
 print(fd1set)
-print(len(fd1set) == 3)
-print(fd1.attributes())
-print(FDSet.key(fd1set))
-print(FDSet.key(fd1set) == {"A"})
-print(FDSet.basis(fd1set))
-skema = RelSchema(fd1.attributes(),fd1)
+#print(len(fd1set) == 3)
+print(fds.attributes())
+print(fd1set.key() == {"A", "E"})
+normalize = fd1set.synthesize()
+print(len(normalize) == 1)
+print(normalize)
+#print(FDSet.key(fd1set) == {"A"})
+#print(FDSet.basis(fd1set))
+#skema = RelSchema(fds.attributes(),fds)
 #normalization = skema.synthesize()
 #print(len(normalization))
