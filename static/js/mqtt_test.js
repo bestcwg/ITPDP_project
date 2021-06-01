@@ -169,3 +169,10 @@ function updateCheckedTables () {
         });
     document.getElementById('workbench').innerHTML = "";
 }
+
+function check () {
+    //Restraint so that you can't press the platform without any table
+    if (attributeMap.size > 0) {
+        finishedTable();
+    }
+}
