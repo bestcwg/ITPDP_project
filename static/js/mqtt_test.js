@@ -68,13 +68,15 @@ function messageMQTT(topic, message, payload) {
             type = "PRIMARY";
         } else if (topic === "/checkresult") {
             if (data === 'true') {
-                updateCheckedTables ()
+                updateCheckedTables();
+                clearTable();
                 return
             } else {
                 document.getElementById('checknf').innerHTML = "That is not in 3NF";
             }
         } else if (topic === "/reset") {
-            attributeMap.delete(convertTag(data["RFID_TAG"]));
+            //mapAsc.delete(convertTag(data["RFID_TAG"]));
+            deleteFromTable(data["RFID_TAG"]);
             updateWorkbench();
             return
         }
@@ -89,6 +91,12 @@ function messageMQTT(topic, message, payload) {
         });
         updateWorkbench();
     }
+}
+
+function deleteFromTable(data) {
+    mapAsc.delete(convertTag(data));
+    mapAscc = new Map([...mapAsc.entries()].sort((a, b) => String(a[0].localeCompare(b[0]))));
+    attributeMap = new Map([...mapAscc.entries()].sort((a, b) => String(b[1].localeCompare(a[1]))));
 }
 
 function mapToObj(map){
@@ -111,10 +119,6 @@ function finishedTable() {
     messageGet = new Paho.MQTT.Message(JSON.stringify(mapToObj(attributeMap)));
     messageGet.destinationName = "learnalize/check";
     client.send(messageGet);
-}
-
-function removeLastEntry(key) {
-    attributeMap.delete(key)
 }
 
 function fetchData () {
@@ -175,4 +179,8 @@ function check () {
     if (attributeMap.size > 0) {
         finishedTable();
     }
+}
+
+function clearTable() {
+    mapAsc.clear();
 }
