@@ -139,12 +139,3 @@ function updateCompleted () {
     attributeMap.clear();
 }
 
-function done () {
-    if (hvis det er det rigtige svar på opgaven))) {
-        fyrværkeri blabla
-    }
-    else {
-        god feedback
-    }
-}
-
