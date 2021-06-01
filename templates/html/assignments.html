@@ -9,7 +9,8 @@
     </head>
     <body>
         <header>
-            <a href="start">LEARNALIZATION </a>
+            <a class="namelogo" href="start">LEARNALIZATION </a>
+            <img onclick="check()" class="Logo" src="/static/gfx/Logo.png" alt="Logo">
         </header>
         <div class="grid-container">
             <div class="item1">
@@ -46,14 +47,13 @@
             </div>
             <div class="item8">
                 <div class="shadow6">
-                    <form class="done" method="POST" action="assignments" name="form" onsubmit="return validated()">
-                        <button class="submit"> Vægtfunktion </button> 
-                    </form>
+                    <!--<form class="check" method="POST" name="check" onsubmit="return check()">-->
+                        <div id="checknf"></div>
                 </div>
             </div>
             <div class="item9">
                 <div class="shadow1">
-                    <form class="done" method="POST" action="assignments" name="form" onsubmit="return validated()">
+                    <form class="done" method="POST" action="assignments" name="done" onsubmit="return done()">
                         <button class="submit"> Done </button>
                     </form>
                 </div>
