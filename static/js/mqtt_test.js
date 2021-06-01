@@ -50,11 +50,13 @@ function onConnectionLost(responseObject) {
 // Called when a message arrives
 function onMessageArrived(message) {
     const payload = message.payloadString;
-    messageMQTT("/attribute", message, payload)
+    messageMQTT("/attribute", message, payload);
         
-    messageMQTT("/primary", message, payload)
+    messageMQTT("/primary", message, payload);
 
-    messageMQTT("/checkresult", message, payload)
+    messageMQTT("/checkresult", message, payload);
+
+    messageMQTT("/reset", message, payload);
 }
 
 function messageMQTT(topic, message, payload) {
@@ -71,6 +73,10 @@ function messageMQTT(topic, message, payload) {
             } else {
                 document.getElementById('checknf').innerHTML = "That is not in 3NF";
             }
+        } else if (topic === "/reset") {
+            attributeMap.delete(convertTag(data["RFID_TAG"]));
+            updateWorkbench();
+            return
         }
         console.log("onMessageArrived: " + payload); 
         mapAsc.set(convertTag(data["RFID_TAG"]), type);
@@ -163,12 +169,3 @@ function updateCheckedTables () {
         });
     document.getElementById('workbench').innerHTML = "";
 }
-
-// Checks if any attributes is in the Workbench, if yes, calls finished table
-function check () {
-    //Restraint so that you can't press the platform without any table
-    if (attributeMap.size > 0) {
-        finishedTable();
-    }
-}
-
