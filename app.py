@@ -47,6 +47,12 @@ def handle_mqtt_message(client, userdata, message):
 
     if topic.endswith("/check"):
         payload = json.loads(payload)
+        keys = []
+        for x in payload :
+            if payload[x] == 'PRIMARY' :
+                keys.append(x)
+        
+        #adds Functional dependencies in play
         nf = nfcheck.FDs()
         if ('A' in payload and 'B' in payload) :
             nf.addfd(nfcheck.FDs.mkfd('A','B'))
@@ -54,7 +60,12 @@ def handle_mqtt_message(client, userdata, message):
             nf.addfd(nfcheck.FDs.mkfd('A','C'))
         if ('A' in payload and 'D' in payload) :
             nf.addfd(nfcheck.FDs.mkfd('A','D'))
+        # Adds all scanned keys as FD's to themselves
+        for x in payload :
+            if payload[x] == 'PRIMARY' :
+                nf.addfd(nfcheck.FDs.mkfd(x,x))
         
+        print(keys)
         print('Keys')
         print(nf.keys())
         print('Minimal Cover')
@@ -65,12 +76,28 @@ def handle_mqtt_message(client, userdata, message):
         for fdc in nf.fdclosure():
             print(''.join(fdc[0]), '->', ''.join(fdc[1]), fdc[2] or '')
 
-        if(nf.is3nf()) :
+        #checks if keys is matching, if they do not it is not in 3nf
+        nfkeys = nf.keys()
+        print(nfkeys[0])
+        for x in keys :
+            if (x not in nfkeys[0]) :
+                mqtt.publish("learnalize/checkresult", json.dumps('false'))
+                print(x)
+                print('first check')
+                return
+        for x in nfkeys[0] :
+            if (x not in keys) :
+                mqtt.publish("learnalize/checkresult", json.dumps('false'))
+                print('check')
+                return
+
+        #checks if table is in 3nf  
+        if (nf.is3nf()) :
             mqtt.publish("learnalize/checkresult", json.dumps('true'))
             db.store_table(payload)
             db.take_all()
         else :
-            mqtt.publish("learnalize/checkresult", str(json.dumps('false', default=str)))
+            mqtt.publish("learnalize/checkresult", json.dumps('false'))
         
     print(f"Received MQTT on {topic}: {payload}")
 
