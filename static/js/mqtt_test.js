@@ -72,10 +72,9 @@ function messageMQTT(topic, message, payload) {
                 clearTable();
                 return
             } else {
-                document.getElementById('checknf').innerHTML = "That is not in 3NF";
+                return document.getElementById('checknf').innerHTML = "That is not in 3NF";
             }
         } else if (topic === "/reset") {
-            //mapAsc.delete(convertTag(data["RFID_TAG"]));
             deleteFromTable(data["RFID_TAG"]);
             updateWorkbench();
             return
@@ -161,7 +160,7 @@ function updateWorkbench () {
 // Updates tbe Completed tables when a table is weighed to be in 3NF
 function updateCheckedTables () {
     document.getElementById('checknf').innerHTML = "";
-    document.getElementById('completed').innerHTML = "Scan some attribute blocks and see your table in progress here!";
+    document.getElementById('workbench').innerHTML = "Scan some attribute blocks and see your table in progress here!";
     document.getElementById('completed').innerHTML = "";
     attributeMap.forEach (function(value, key) {
             if(value === 'PRIMARY') {
@@ -171,10 +170,10 @@ function updateCheckedTables () {
                 document.getElementById('completed').innerHTML += `<img src='/static/gfx/${key}.png' alt='${key}'>`;
             }
         });
-    document.getElementById('workbench').innerHTML = "";
+    //document.getElementById('workbench').innerHTML = "";
 }
 
-function check () {
+function check() {
     //Restraint so that you can't press the platform without any table
     if (attributeMap.size > 0) {
         finishedTable();

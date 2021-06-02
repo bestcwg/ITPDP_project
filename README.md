@@ -4,5 +4,9 @@ The project is created and maintained by Andreas Gramvad Jensen, Christian Wolte
 
 
 
-Clear liste når det flyttes til confirmed - og lav så confirmed viser det i databasen
-Flere checks
+
+- [x] Clear liste når det flyttes til confirmed - og lav så confirmed viser det i databasen
+- [ ] Feedback
+- [ ] Confirmed tables, fra database
+- [ ] Done knap 
+- [ ] Flere checks

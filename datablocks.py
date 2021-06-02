@@ -51,7 +51,6 @@ def store_table(temp_table):
         """, finaldata)
         conn.commit()
 
-
 def reset_database():
     """Deletes all stored tables in database"""
     with sqlite3.connect(
@@ -59,10 +58,9 @@ def reset_database():
     ) as conn:
         cur = conn.cursor()
         cur.execute("""
-        SELECT * FROM sqlite_master WHERE type = 'table';
+        DELETE FROM datablocks;
         """)
-        h = cur.fetchall()
-        print(h)
+        conn.commit()
 
 def take_all():
     with sqlite3.connect(
@@ -75,5 +73,4 @@ def take_all():
         return print(cur.fetchall())
 
 if __name__ != "__main__":
-    #reset_database()
     create_database()
