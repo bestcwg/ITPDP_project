@@ -130,3 +130,7 @@ a:hover {
     color: white;
     font: inherit;
 }
+
+[contentEditable=true]:empty:not(:focus):before{
+    content:attr(data-text)
+}

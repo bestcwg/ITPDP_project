@@ -65,8 +65,8 @@ def handle_mqtt_message(client, userdata, message):
         for fdc in nf.fdclosure():
             print(''.join(fdc[0]), '->', ''.join(fdc[1]), fdc[2] or '')
 
-        if nf.is3nf():
-            mqtt.publish("learnalize/checkresult", str(json.dumps('true', default=str)))
+        if(nf.is3nf()) :
+            mqtt.publish("learnalize/checkresult", json.dumps('true'))
             db.store_table(payload)
             db.take_all()
         else :
