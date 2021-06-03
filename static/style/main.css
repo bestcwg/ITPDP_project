@@ -131,6 +131,11 @@ a:hover {
     font: inherit;
 }
 
+.done :disabled {
+    background-color: #142740;
+    color: #142740;
+}
+
 [contentEditable=true]:empty:not(:focus):before{
     content:attr(data-text)
 }

@@ -171,6 +171,7 @@ function updateCheckedTables () {
         }
     });
     document.getElementById('completed').innerHTML += `<br />`;
+    document.getElementById('donebut').disabled ="false"
 }
 
 function check() {
