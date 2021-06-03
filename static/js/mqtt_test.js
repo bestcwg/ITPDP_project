@@ -74,7 +74,7 @@ function messageMQTT(topic, message, payload) {
                 clearTable();
                 return
             } else {
-                return document.getElementById('checknf').innerHTML = "That is not in 3NF";
+                return document.getElementById('checknf').innerHTML = "Det er ikke i 3NF";
             }
         } else if (topic === "/reset") {
             deleteFromTable(data["RFID_TAG"]);
@@ -145,7 +145,7 @@ function fetchData () {
 // Updates the Workbench when a new RFID is scanned, or when a table is weighed
 function updateWorkbench () {
     document.getElementById('checknf').innerHTML = "";
-    document.getElementById('workbench').innerHTML = "Scan some attribute blocks and see your table in progress here!";
+    document.getElementById('workbench').innerHTML = "Scan nogle attribut blokke og se din tabel tage form her!";
     if (attributeMap.size > 0) {
         document.getElementById('workbench').innerHTML = "";
         attributeMap.forEach (function(value, key) {
@@ -162,7 +162,7 @@ function updateWorkbench () {
 // Updates tbe Completed tables when a table is weighed to be in 3NF
 function updateCheckedTables () {
     document.getElementById('checknf').innerHTML = "";
-    document.getElementById('workbench').innerHTML = "Scan some attribute blocks and see your table in progress here!";
+    document.getElementById('workbench').innerHTML = "Scan nogle attribut blokke og se din tabel tage form her!";
     console.log(attributeMap);
     attributeMap.forEach (function(value, key) {
         if(value === 'PRIMARY') {
@@ -192,7 +192,11 @@ function done() {
     state += 1;
     // hardcoded done button function
     if (state > 1) {
-        document.getElementById('donebut').innerHTML = "<a href='#myModal' class='trigger-btn' data-toggle='modal'>Done</a>";
+        document.getElementById('donebut').style.backgroundColor = "green";
+        document.getElementById('donebut').innerHTML = "Næste opgave";
+        document.getElementById('donefeedback').style.color = "green";
+        document.getElementById('donefeedback').style.fontSize = "40px";
+        document.getElementById('donefeedback').innerHTML = "DU KLAREDE DEN!";
     }
     else {
         document.getElementById('donefeedback').innerHTML = "Den oprindelige tabel kan ikke gendannes";
