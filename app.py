@@ -27,6 +27,11 @@ def assignments():
     """Redirects to Assignments"""
     return render_template("html/assignments.html", config=__CONFIG, confirmed_tables=db.take_all())
 
+@app.route("/done", methods=["GET"])
+def done():
+    """Redirects to donepage"""
+    return render_template("html/done.html", config=__CONFIG)
+
 @mqtt.on_connect()
 def handle_connect(client, userdata, flags, rc):
     """Handles connection"""

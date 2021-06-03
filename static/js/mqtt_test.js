@@ -173,7 +173,6 @@ function updateCheckedTables () {
         }
     });
     document.getElementById('completed').innerHTML += `<br />`;
-    document.getElementById('donebut').disabled ="false"
 }
 
 function check() {
@@ -187,15 +186,15 @@ function clearTable() {
     mapAsc.clear();
 }
 
-function done () {
+function done() {
+    console.log(state);
     document.getElementById('donefeedback').innerHTML = "";
     state += 1;
     // hardcoded done button function
     if (state > 1) {
-        return true;
+        window.location.href = 'http://10.192.97.77:5000/done';
     }
     else {
         document.getElementById('donefeedback').innerHTML = "Den oprindelige tabel kan ikke gendannes";
-        document.getElementById('donefeedback').display = block;
     }
 }
