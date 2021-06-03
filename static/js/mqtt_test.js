@@ -166,10 +166,10 @@ function updateCheckedTables () {
     console.log(attributeMap);
     attributeMap.forEach (function(value, key) {
         if(value === 'PRIMARY') {
-            document.getElementById('completed').innerHTML += `<img src='/static/gfx/${key}P.png' alt='${key}P'>`;
+            document.getElementById('completed').innerHTML += `<img src='/static/gfx/${key}P-kopi.png' alt='${key}P-kopi'>`;
         }
         else {
-            document.getElementById('completed').innerHTML += `<img src='/static/gfx/${key}.png' alt='${key}'>`;
+            document.getElementById('completed').innerHTML += `<img src='/static/gfx/${key}-kopi.png' alt='${key}-kopi'>`;
         }
     });
     document.getElementById('completed').innerHTML += `<br />`;
