@@ -37,7 +37,17 @@
             </div>
             <div class="item6">
                 <div class="shadow4">
-                    <div id="completed" contentEditable=true data-text="This is where your weighed 3NF tables will show!"></div>
+                    <div id="completed" contentEditable=true data-text="This is where your weighed 3NF tables will show!">
+                        <!-- {% for x in confirmed_tables %}
+                            {% for y in confirmed_tables[x] %}
+                                {% if y == "NOT PRIMARY" %}
+                                <span><img src='/static/gfx/{{ y }}.png' alt='{{ y }}'> </span>
+                                {% else if y == "PRIMARY" %}
+                                <span><img src='/static/gfx/{{ y }}p.png' alt='{{ y }}p'> </span>
+                                {% endif %}
+                            {% endfor %}
+                        {% endfor %} -->
+                    </div>
                 </div>
             </div>
             <div class="item7">
@@ -48,7 +58,7 @@
             <div class="item8">
                 <div class="shadow6">
                     <!--<form class="check" method="POST" name="check" onsubmit="return check()">-->
-                        <div id="checknf"></div>
+                    <div id="checknf"></div>
                 </div>
             </div>
             <div class="item9">

@@ -25,7 +25,7 @@ def index():
 @app.route("/assignments", methods=["GET", "POST"])
 def assignments():
     """Redirects to Assignments"""
-    return render_template("html/assignments.html", config=__CONFIG)
+    return render_template("html/assignments.html", config=__CONFIG, confirmed_tables=db.take_all())
 
 @mqtt.on_connect()
 def handle_connect(client, userdata, flags, rc):
@@ -70,7 +70,7 @@ def handle_mqtt_message(client, userdata, message):
             db.store_table(payload)
             db.take_all()
         else :
-            mqtt.publish("learnalize/checkresult", str(json.dumps('false', default=str)))
+            mqtt.publish("learnalize/checkresult", json.dumps('false'))
         
     print(f"Received MQTT on {topic}: {payload}")
 

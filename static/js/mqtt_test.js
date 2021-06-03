@@ -161,7 +161,6 @@ function updateWorkbench () {
 function updateCheckedTables () {
     document.getElementById('checknf').innerHTML = "";
     document.getElementById('workbench').innerHTML = "Scan some attribute blocks and see your table in progress here!";
-    //document.getElementById('completed').innerHTML = "";
     console.log(attributeMap);
     attributeMap.forEach (function(value, key) {
         if(value === 'PRIMARY') {
@@ -171,6 +170,7 @@ function updateCheckedTables () {
             document.getElementById('completed').innerHTML += `<img src='/static/gfx/${key}.png' alt='${key}'>`;
         }
     });
+    document.getElementById('completed').innerHTML += `<br />`;
 }
 
 function check() {
