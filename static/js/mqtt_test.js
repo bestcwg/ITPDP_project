@@ -1,6 +1,8 @@
 const host = "itwot.cs.au.dk";
 const port = "8883";
 const topic = "learnalize/#";
+// state for the done button
+var state = 0;
 
 let client;
 let mapAsc = new Map();
@@ -183,4 +185,17 @@ function check() {
 
 function clearTable() {
     mapAsc.clear();
+}
+
+function done () {
+    document.getElementById('donefeedback').innerHTML = "";
+    state += 1;
+    // hardcoded done button function
+    if (state > 1) {
+        return true;
+    }
+    else {
+        document.getElementById('donefeedback').innerHTML = "Den oprindelige tabel kan ikke gendannes";
+        document.getElementById('donefeedback').display = block;
+    }
 }
