@@ -74,7 +74,7 @@ function messageMQTT(topic, message, payload) {
                 clearTable();
                 return
             } else {
-                return document.getElementById('checknf').innerHTML = "That is not in 3NF";
+                return document.getElementById('checknf').innerHTML = "Det er ikke i 3NF";
             }
         } else if (topic === "/reset") {
             deleteFromTable(data["RFID_TAG"]);
@@ -145,7 +145,7 @@ function fetchData () {
 // Updates the Workbench when a new RFID is scanned, or when a table is weighed
 function updateWorkbench () {
     document.getElementById('checknf').innerHTML = "";
-    document.getElementById('workbench').innerHTML = "Scan some attribute blocks and see your table in progress here!";
+    document.getElementById('workbench').innerHTML = "Scan nogle attribut blokke og se din tabel tage form her!";
     if (attributeMap.size > 0) {
         document.getElementById('workbench').innerHTML = "";
         attributeMap.forEach (function(value, key) {
@@ -162,18 +162,17 @@ function updateWorkbench () {
 // Updates tbe Completed tables when a table is weighed to be in 3NF
 function updateCheckedTables () {
     document.getElementById('checknf').innerHTML = "";
-    document.getElementById('workbench').innerHTML = "Scan some attribute blocks and see your table in progress here!";
+    document.getElementById('workbench').innerHTML = "Scan nogle attribut blokke og se din tabel tage form her!";
     console.log(attributeMap);
     attributeMap.forEach (function(value, key) {
         if(value === 'PRIMARY') {
-            document.getElementById('completed').innerHTML += `<img src='/static/gfx/${key}P.png' alt='${key}P'>`;
+            document.getElementById('completed').innerHTML += `<img src='/static/gfx/${key}P-kopi.png' alt='${key}P-kopi'>`;
         }
         else {
-            document.getElementById('completed').innerHTML += `<img src='/static/gfx/${key}.png' alt='${key}'>`;
+            document.getElementById('completed').innerHTML += `<img src='/static/gfx/${key}-kopi.png' alt='${key}-kopi'>`;
         }
     });
     document.getElementById('completed').innerHTML += `<br />`;
-    document.getElementById('donebut').disabled ="false"
 }
 
 function check() {
@@ -187,15 +186,19 @@ function clearTable() {
     mapAsc.clear();
 }
 
-function done () {
+function done() {
+    console.log(state);
     document.getElementById('donefeedback').innerHTML = "";
     state += 1;
     // hardcoded done button function
     if (state > 1) {
-        return true;
+        document.getElementById('donebut').style.backgroundColor = "green";
+        document.getElementById('donebut').innerHTML = "Næste opgave";
+        document.getElementById('donefeedback').style.color = "green";
+        document.getElementById('donefeedback').style.fontSize = "40px";
+        document.getElementById('donefeedback').innerHTML = "DU KLAREDE DEN!";
     }
     else {
         document.getElementById('donefeedback').innerHTML = "Den oprindelige tabel kan ikke gendannes";
-        document.getElementById('donefeedback').display = block;
     }
 }
