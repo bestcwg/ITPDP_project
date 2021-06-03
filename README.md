@@ -9,4 +9,3 @@ The project is created and maintained by Andreas Gramvad Jensen, Christian Wolte
 - [ ] Feedback
 - [ ] Confirmed tables, fra database
 - [ ] Done knap 
-- [ ] Flere checks

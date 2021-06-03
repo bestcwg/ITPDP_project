@@ -171,6 +171,7 @@ function updateCheckedTables () {
             document.getElementById('completed').innerHTML += `<img src='/static/gfx/${key}.png' alt='${key}'>`;
         }
     });
+    document.getElementById('donebut').disabled ="false"
 }
 
 function check() {
