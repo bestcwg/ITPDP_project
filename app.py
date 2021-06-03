@@ -61,10 +61,14 @@ def handle_mqtt_message(client, userdata, message):
         if ('A' in payload and 'D' in payload) :
             nf.addfd(nfcheck.FDs.mkfd('A','D'))
         # Adds all scanned keys as FD's to themselves
+        #for x in payload :
+         #   if payload[x] == 'PRIMARY' :
+         #       nf.addfd(nfcheck.FDs.mkfd(x,x))
+        # If an attribute has no other FD's, adds one
         for x in payload :
-            if payload[x] == 'PRIMARY' :
+            if payload[x] not in nf.fds :
                 nf.addfd(nfcheck.FDs.mkfd(x,x))
-        
+
         print(keys)
         print('Keys')
         print(nf.keys())
