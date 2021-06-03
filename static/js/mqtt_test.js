@@ -192,7 +192,7 @@ function done() {
     state += 1;
     // hardcoded done button function
     if (state > 1) {
-        window.location.href = 'http://10.192.97.77:5000/done';
+        document.getElementById('donebut').innerHTML = "<a href='#myModal' class='trigger-btn' data-toggle='modal'>Done</a>";
     }
     else {
         document.getElementById('donefeedback').innerHTML = "Den oprindelige tabel kan ikke gendannes";

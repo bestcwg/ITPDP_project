@@ -56,11 +56,32 @@
             <div class="item9">
                 <div class="shadow1">
                     <!--<form class="done" method="POST" action="done" name="done">-->
-                    <button onclick="done()" class="submit"> Done </button>
+                    <button onclick="done()" class="submit" id="donebut"> Done </button>
+                    
                     <!--</form>-->
                 </div>
             <!--<script src="{{config['prefix']}}/static/js/mqtt_test.js" type="text/javascript"></script> -->
             </div>
         </div>
+        
+        <!-- Modal HTML -->
+		<div id="myModal" class="modal fade">
+			<div class="modal-dialog modal-confirm">
+				<div class="modal-content">
+					<div class="modal-header">
+						<div class="icon-box">
+							<i class="material-icons">&#xE876;</i>
+						</div>				
+						<h4 class="modal-title w-100">Awesome!</h4>	
+					</div>
+					<div class="modal-body">
+						<p class="text-center">Congratulations. You solved the task!</p>
+					</div>
+					<div class="modal-footer">
+						<button class="btn btn-success btn-block" data-dismiss="modal">OK</button>
+					</div>
+				</div>
+			</div>
+		</div> 
     </body>
 </html>
