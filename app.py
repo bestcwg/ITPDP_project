@@ -90,25 +90,42 @@ def handle_mqtt_message(client, userdata, message):
         print(nfkeys[0])
         for x in keys :
             if (x not in nfkeys[0]) :
-                mqtt.publish("learnalize/checkresult", json.dumps('false'))
+                nf_fail()
                 print(x)
                 print('first check')
                 return
         for x in nfkeys[0] :
             if (x not in keys) :
-                mqtt.publish("learnalize/checkresult", json.dumps('false'))
+                nf_fail()
                 print('check')
                 return
 
         #checks if table is in 3nf  
-        if (nf.is3nf()) :
+        if (nf.is3nf()):
             mqtt.publish("learnalize/checkresult", json.dumps('true'))
+            mqtt.publish("learnalize/adafruit/weight/state", json.dumps('M'))
             db.store_table(payload)
             db.take_all()
-        else :
-            mqtt.publish("learnalize/checkresult", json.dumps('false'))
-        
+        else:
+            nf_fail()
+    
+    if topic.endswith("/solution"):
+        list = db.take_all()
+        print(len(list))
+        print(list)
+        if len(list) == 2:
+            table1 = {'A': 'PRIMARY', 'B': '', 'C': '', 'D': '', 'E': 'PRIMARY', 'F': ''}
+            table2 = {'A': 'PRIMARY', 'B': 'NOT PRIMARY', 'C': 'NOT PRIMARY', 'D': 'NOT PRIMARY', 'E': '', 'F': ''}
+
+            if (table1 == list[0] and table2 == list[1]) or (table1 == list[1] and table2 == list[0]):
+                mqtt.publish("learnalize/donesolution", json.dumps('true'))
+                db.reset_database()
+            else:
+                mqtt.publish("learnalize/donesolution", json.dumps('false')) 
+
     print(f"Received MQTT on {topic}: {payload}")
+
+            
 
 
 def handler(signal_received, frame):
@@ -118,6 +135,9 @@ def handler(signal_received, frame):
     mqtt.unsubscribe_all()
     exit(0)
 
+def nf_fail():
+    mqtt.publish("learnalize/adafruit/weight/state", json.dumps('B'))
+    mqtt.publish("learnalize/checkresult", json.dumps('false'))
 
 if __name__ == "__main__":
     signal(SIGINT, handler)

@@ -1,17 +1,10 @@
 const host = "itwot.cs.au.dk";
 const port = "8883";
 const topic = "learnalize/#";
-// state for the done button
-var state = 0;
 
 let client;
 let mapAsc = new Map();
 let attributeMap = new Map();
-//attributeMap.set('A', '12334');
-//attributeMap.set('B', '1233');
-//attributeMap.set('C', '123234');
-//attributeMap.set('D', '334');
-//updateWorkbench();
 
 window.addEventListener('load', startConnect());
 
@@ -59,11 +52,14 @@ function onMessageArrived(message) {
     messageMQTT("/checkresult", message, payload);
 
     messageMQTT("/reset", message, payload);
+
+    messageMQTT("/donesolution", message, payload);
 }
 
 function messageMQTT(topic, message, payload) {
     if (message.destinationName.endsWith(topic)) {
         data = JSON.parse(payload);
+        console.log(data);
         if (topic === "/attribute") {
             type = "NOT PRIMARY";
         } else if (topic === "/primary") {
@@ -79,6 +75,9 @@ function messageMQTT(topic, message, payload) {
         } else if (topic === "/reset") {
             deleteFromTable(data["RFID_TAG"]);
             updateWorkbench();
+            return
+        } else if (topic === "/donesolution") {
+            done(data);
             return
         }
         console.log("onMessageArrived: " + payload); 
@@ -186,7 +185,7 @@ function clearTable() {
     mapAsc.clear();
 }
 
-function done() {
+/*function done() {
     console.log(state);
     document.getElementById('donefeedback').innerHTML = "";
     state += 1;
@@ -201,4 +200,22 @@ function done() {
     else {
         document.getElementById('donefeedback').innerHTML = "Den oprindelige tabel kan ikke gendannes";
     }
+}*/
+
+function done(state) {
+    if (state === "true") {
+        document.getElementById('donebut').style.backgroundColor = "green";
+        document.getElementById('donebut').innerHTML = "Næste opgave";
+        document.getElementById('donefeedback').style.color = "green";
+        document.getElementById('donefeedback').style.fontSize = "40px";
+        document.getElementById('donefeedback').innerHTML = "DU KLAREDE DEN!";
+    } else {
+        document.getElementById('donefeedback').innerHTML = "Den oprindelige tabel kan ikke gendannes";
+    }
+}
+
+function checkDone() {
+    messageGet = new Paho.MQTT.Message("testdone");
+    messageGet.destinationName = "learnalize/solution";
+    client.send(messageGet);
 }
