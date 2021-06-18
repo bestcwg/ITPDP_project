@@ -121,12 +121,10 @@ def handle_mqtt_message(client, userdata, message):
                 mqtt.publish("learnalize/donesolution", json.dumps('true'))
                 db.reset_database()
             else:
-                mqtt.publish("learnalize/donesolution", json.dumps('false')) 
+                mqtt.publish("learnalize/donesolution", json.dumps('false'))
+                db.reset_database() 
 
     print(f"Received MQTT on {topic}: {payload}")
-
-            
-
 
 def handler(signal_received, frame):
     """handles exiting"""

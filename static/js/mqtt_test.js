@@ -210,7 +210,8 @@ function done(state) {
         document.getElementById('donefeedback').style.fontSize = "40px";
         document.getElementById('donefeedback').innerHTML = "DU KLAREDE DEN!";
     } else {
-        document.getElementById('donefeedback').innerHTML = "Den oprindelige tabel kan ikke gendannes";
+        document.getElementById('donefeedback').innerHTML = "Den oprindelige tabel kan ikke gendannes, prøv igen";
+        document.getElementById('completed').innerHTML = "";
     }
 }
 
